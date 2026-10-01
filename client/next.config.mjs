@@ -6,16 +6,16 @@ const nextConfig = {
   images: {
     remotePatterns: [
       {
-        protocol: 'https',
-        hostname: 'ik.imagekit.io',
-      }
+        protocol: "https",
+        hostname: "ik.imagekit.io",
+      },
     ],
   },
   async rewrites() {
     return [
       {
-        source: '/api/:path*',
-        destination: 'https://clarityautospa-server.onrender.com/api/:path*',
+        source: "/api/:path*",
+        destination: "https://clarityautospa-server.onrender.com/api/:path*",
       },
     ];
   },

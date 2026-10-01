@@ -4,6 +4,7 @@ import { useState, useRef, useEffect } from "react";
 import { quizOptions, DEEP, SPECIALTY, NONE, quizResults } from "@/config/quizConfig";
 import ServiceCard from "@/components/cards/ServiceCard";
 import Link from "next/link";
+import { PawPrint, CupSoda, Armchair, Mountain, Wind, Bug, CheckCircle2 } from "lucide-react";
 
 export default function ServiceQuiz({ services = [], categories = [], onBookMiniDetail }) {
   const [selected, setSelected] = useState([]);
@@ -77,8 +78,13 @@ export default function ServiceQuiz({ services = [], categories = [], onBookMini
     
     if (!targetSlug) return [];
 
-    return services.filter(s => s.categoryId === targetSlug && s.enabled)
-                   .sort((a, b) => (a.displayOrder || 0) - (b.displayOrder || 0));
+    const targetCat = categories.find(c => c.slug === targetSlug);
+
+    return services.filter(s => {
+      if (!s.enabled) return false;
+      return s.categoryId === targetSlug || 
+             (targetCat && s.category && s.category.toLowerCase() === targetCat.title.toLowerCase());
+    }).sort((a, b) => (a.displayOrder || 0) - (b.displayOrder || 0));
   };
 
   const resultCards = getResultCards();
@@ -90,39 +96,55 @@ export default function ServiceQuiz({ services = [], categories = [], onBookMini
   };
 
   return (
-    <div className="bg-cream-alt rounded-[2.5rem] p-8 md:p-12 shadow-[0_8px_30px_rgba(0,0,0,0.06)] border border-gold/10 relative overflow-hidden">
-      {/* Decorative background blur */}
-      <div className="absolute -top-40 -right-40 w-80 h-80 bg-gold/5 rounded-full blur-3xl pointer-events-none"></div>
+    <div className="mx-auto relative">
       <div aria-live="polite" className="sr-only">{announcement}</div>
       
       {!result ? (
-        <div className="max-w-2xl mx-auto">
-          <div className="text-center mb-8">
-            <h2 className="font-heading font-medium text-[clamp(2rem,3.5vw,2.75rem)] leading-[1.15] text-charcoal mb-2 capitalize">
-              Does your vehicle have any of the following?
+        <div className="flex flex-col">
+          <div className="mb-10 text-center">
+            <h2 className="font-heading font-medium text-3xl md:text-4xl text-charcoal mb-3">
+              Not sure which service you need?
             </h2>
-            <p className="text-charcoal-soft font-medium">Select all that apply.</p>
+            <p className="text-charcoal-soft text-lg">Select any conditions that apply to your vehicle.</p>
           </div>
 
-          <fieldset className="space-y-3 mb-8">
+          <fieldset className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 mb-10">
             <legend className="sr-only">Vehicle conditions</legend>
             {quizOptions.map((opt) => {
               const isChecked = selected.includes(opt.id);
+              let Icon;
+              if (opt.id === 1) Icon = PawPrint;
+              else if (opt.id === 2) Icon = CupSoda;
+              else if (opt.id === 3) Icon = Armchair;
+              else if (opt.id === 4) Icon = Mountain;
+              else if (opt.id === 5) Icon = Wind;
+              else if (opt.id === 6) Icon = Bug;
+              else if (opt.id === 7) Icon = CheckCircle2;
+              else Icon = CheckCircle2;
+
               return (
                 <label 
                   key={opt.id} 
-                  className={`flex items-center min-h-[56px] p-4 md:px-6 rounded-2xl border-2 transition-all cursor-pointer focus-within:ring-2 focus-within:ring-gold focus-within:ring-offset-2 ${isChecked ? 'border-gold bg-gold/5 shadow-md shadow-gold/10' : 'border-white bg-white hover:border-gold/30 hover:shadow-sm'}`}
+                  className={`group relative flex flex-col items-center justify-center text-center p-6 rounded-2xl transition-all cursor-pointer border ${isChecked ? 'bg-charcoal border-charcoal shadow-[0_8px_30px_rgb(0,0,0,0.12)] -translate-y-1' : 'bg-white border-gray-100 hover:border-gold/50 hover:shadow-sm'}`}
                 >
+                  <div className={`absolute top-4 right-4 w-5 h-5 rounded-full border flex items-center justify-center transition-colors ${isChecked ? 'bg-gold border-gold' : 'border-gray-200 group-hover:border-gold/50'}`}>
+                    {isChecked && <svg className="w-3 h-3 text-charcoal" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="3" d="M5 13l4 4L19 7"/></svg>}
+                  </div>
+
                   <input
                     type="checkbox"
                     className="sr-only"
                     checked={isChecked}
                     onChange={() => handleToggle(opt.id)}
                   />
-                  <div className={`w-5 h-5 flex-shrink-0 border-2 rounded mr-4 transition-colors flex items-center justify-center ${isChecked ? 'border-gold bg-gold' : 'border-gray-300'}`}>
-                    {isChecked && <svg className="w-3.5 h-3.5 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="3" d="M5 13l4 4L19 7"/></svg>}
+                  
+                  <div className={`mb-4 p-3.5 rounded-full transition-colors ${isChecked ? 'bg-white/10 text-gold' : 'bg-cream text-charcoal-soft group-hover:bg-gold/10 group-hover:text-gold'}`}>
+                    <Icon className="w-6 h-6" strokeWidth={1.5} />
                   </div>
-                  <span className="font-sans text-charcoal leading-[1.65] font-medium">{opt.label}</span>
+                  
+                  <span className={`text-[14px] font-medium leading-snug transition-colors ${isChecked ? 'text-white' : 'text-charcoal'}`}>
+                    {opt.label}
+                  </span>
                 </label>
               );
             })}
@@ -132,39 +154,38 @@ export default function ServiceQuiz({ services = [], categories = [], onBookMini
             <button
               disabled={selected.length === 0}
               onClick={handleRecommend}
-              className="bg-gold text-charcoal font-semibold px-8 py-4 rounded-full hover:bg-gold-hover transition-colors disabled:opacity-50 disabled:hover:bg-gold w-full sm:w-auto"
+              className="bg-charcoal text-white font-medium px-8 py-3 rounded-full hover:bg-gold hover:text-charcoal transition-colors disabled:opacity-30 disabled:hover:bg-charcoal disabled:hover:text-white"
             >
-              See my recommendation
+              Get Recommendation
             </button>
           </div>
         </div>
       ) : (
         <div ref={resultRef} className="animate-fade-in scroll-mt-24">
           <div className="text-center max-w-3xl mx-auto mb-10">
-            <div className="inline-flex items-center gap-2 bg-cream-alt text-charcoal px-3 py-1 rounded-full text-[12px] md:text-[13px] tracking-[0.12em] font-semibold uppercase mb-4">
-              <span className="w-1.5 h-1.5 rounded-full bg-gold"></span>
+            <div className="inline-flex items-center gap-2 bg-charcoal text-white px-4 py-1.5 rounded-full text-[12px] tracking-[0.12em] font-semibold uppercase mb-6">
               Recommendation
             </div>
-            <h2 className="font-heading font-medium text-[clamp(2rem,3.5vw,2.75rem)] leading-[1.15] text-charcoal mb-4 capitalize">
+            <h2 className="font-heading font-medium text-3xl md:text-4xl leading-[1.15] text-charcoal mb-4 capitalize">
               {result.title}
             </h2>
-            <p className="text-charcoal-soft leading-[1.65] text-[16px] md:text-[17px] mb-6">
+            <p className="text-charcoal-soft leading-relaxed text-[16px] md:text-[17px] mb-8">
               {result.copy}
             </p>
             
             {result.id === "DEEP" && (
-              <div className="bg-white p-6 md:p-8 rounded-[2rem] inline-block text-left mb-8 w-full max-w-lg border border-gray-100 shadow-sm relative z-10">
-                <p className="font-semibold text-charcoal mb-6 text-center text-[17px]">Would you like comprehensive exterior detailing too?</p>
-                <div className="flex gap-4 justify-center">
+              <div className="bg-transparent border border-gray-200 p-6 rounded-2xl inline-block text-left mb-8 w-full max-w-md relative z-10 text-center">
+                <p className="font-medium text-charcoal mb-5">Would you like comprehensive exterior detailing too?</p>
+                <div className="flex gap-3 justify-center">
                   <button 
                     onClick={() => setFollowUpResponse('yes')}
-                    className={`px-6 py-2.5 rounded-full font-semibold transition-colors border-2 ${followUpResponse === 'yes' ? 'bg-gold border-gold text-charcoal' : 'bg-transparent border-gray-300 text-charcoal hover:border-gold'}`}
+                    className={`px-8 py-2.5 rounded-full font-medium transition-colors border ${followUpResponse === 'yes' ? 'bg-charcoal border-charcoal text-white' : 'bg-white border-gray-200 text-charcoal hover:border-gray-300'}`}
                   >
                     Yes
                   </button>
                   <button 
                     onClick={() => setFollowUpResponse('no')}
-                    className={`px-6 py-2.5 rounded-full font-semibold transition-colors border-2 ${followUpResponse === 'no' ? 'bg-gold border-gold text-charcoal' : 'bg-transparent border-gray-300 text-charcoal hover:border-gold'}`}
+                    className={`px-8 py-2.5 rounded-full font-medium transition-colors border ${followUpResponse === 'no' ? 'bg-charcoal border-charcoal text-white' : 'bg-white border-gray-200 text-charcoal hover:border-gray-300'}`}
                   >
                     No
                   </button>
@@ -176,22 +197,22 @@ export default function ServiceQuiz({ services = [], categories = [], onBookMini
               <div className="flex flex-col sm:flex-row gap-4 justify-center mt-8">
                 <Link 
                   href={getQuoteUrl()}
-                  className="bg-gold text-charcoal font-semibold px-8 py-3.5 rounded-full hover:bg-gold-hover transition-colors"
+                  className="bg-charcoal text-white font-medium px-8 py-3 rounded-full hover:bg-gold hover:text-charcoal transition-colors"
                 >
                   Request an Assessment
                 </Link>
                 <a 
                   href="tel:+13472278485"
-                  className="bg-transparent text-charcoal font-semibold border-[1.5px] border-charcoal px-8 py-3.5 rounded-full hover:bg-charcoal hover:text-white transition-colors"
+                  className="bg-white text-charcoal font-medium border border-gray-200 px-8 py-3 rounded-full hover:border-gray-300 transition-colors"
                 >
                   Call Us
                 </a>
               </div>
             )}
             
-            <div className="mt-6">
-              <a href="#" onClick={handleStartOver} className="text-sm font-semibold text-charcoal-soft underline underline-offset-4 hover:text-charcoal">
-                Start over
+            <div className="mt-8">
+              <a href="#" onClick={handleStartOver} className="text-sm font-medium text-charcoal-soft hover:text-charcoal transition-colors">
+                ← Start over
               </a>
             </div>
           </div>

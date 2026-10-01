@@ -29,8 +29,8 @@ export const metadata = {
 
 export default function RootLayout({ children }) {
   return (
-    <html lang="en" className={`scroll-smooth ${cormorant.variable} ${manrope.variable}`}>
-      <body className="font-sans antialiased min-h-screen flex flex-col text-[16px] md:text-[17px] leading-[1.65]">
+    <html lang="en" suppressHydrationWarning className={`scroll-smooth ${cormorant.variable} ${manrope.variable}`}>
+      <body suppressHydrationWarning className="font-sans antialiased min-h-screen flex flex-col text-[16px] md:text-[17px] leading-[1.65]">
         <SmoothScroll>
           <Navbar />
           <main className="flex-grow pb-16 md:pb-0">{children}</main>

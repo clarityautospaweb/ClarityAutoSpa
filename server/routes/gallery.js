@@ -3,6 +3,7 @@ const router = express.Router();
 const GalleryImage = require('../models/GalleryImage');
 const requireAuth = require('../middleware/requireAuth');
 const upload = require('../middleware/upload');
+const optimizeImages = require('../middleware/imageOptimizer');
 const imagekit = require('../config/imagekit');
 
 // @route   GET /api/gallery
@@ -24,7 +25,7 @@ router.get('/', async (req, res) => {
 
 // @route   POST /api/gallery
 // @desc    Upload new gallery image (Admin)
-router.post('/', requireAuth, upload.fields([{ name: 'image', maxCount: 1 }, { name: 'beforeImage', maxCount: 1 }, { name: 'afterImage', maxCount: 1 }]), async (req, res) => {
+router.post('/', requireAuth, upload.fields([{ name: 'image', maxCount: 1 }, { name: 'beforeImage', maxCount: 1 }, { name: 'afterImage', maxCount: 1 }]), optimizeImages, async (req, res) => {
   try {
     const imageType = req.body.imageType || 'Plain Image';
     let newImageData = {

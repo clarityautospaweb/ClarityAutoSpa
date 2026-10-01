@@ -4,6 +4,7 @@ const { z } = require('zod');
 const Submission = require('../models/Submission');
 const requireAuth = require('../middleware/requireAuth');
 const upload = require('../middleware/upload');
+const optimizeImages = require('../middleware/imageOptimizer');
 const imagekit = require('../config/imagekit');
 const nodemailer = require('nodemailer');
 
@@ -18,7 +19,7 @@ const submissionSchema = z.object({
 
 // @route   POST /api/submissions
 // @desc    Submit a new contact/quote form (Public)
-router.post('/', upload.array('photos', 5), async (req, res) => {
+router.post('/', upload.array('photos', 5), optimizeImages, async (req, res) => {
   try {
     const validatedData = submissionSchema.parse(req.body);
     

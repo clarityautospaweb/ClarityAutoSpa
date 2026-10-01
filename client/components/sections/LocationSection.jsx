@@ -17,18 +17,18 @@ export default async function LocationSection() {
   const requirements = settings?.appointmentRequirements || "Appointment required for specialty services. Walk-ins welcome for basic washes.";
 
   return (
-    <section id="location" className="py-24 bg-charcoal border-t border-grey/10">
+    <section id="location" className="py-24 bg-[#111618] border-t border-white/10">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
           
           {/* Info Side */}
           <div>
-            <div className="inline-flex items-center gap-2 bg-cream-alt text-charcoal px-3 py-1 rounded-full tracking-[0.12em] uppercase mb-4 text-[12px] md:text-[13px] font-semibold">
+            <div className="inline-flex items-center gap-2 bg-gold/10 border border-gold/20 text-gold px-4 py-1.5 rounded-full tracking-[0.15em] uppercase mb-5 text-[12px] font-bold shadow-sm">
               <span className="w-1.5 h-1.5 rounded-full bg-gold"></span>
               Visit Us
             </div>
-            <h2 className="capitalize text-cream mb-10 text-[clamp(2rem,3.5vw,2.75rem)] leading-[1.15] font-heading font-medium">
-              Conveniently <span className="text-cream">Located</span>
+            <h2 className="capitalize text-white mb-10 text-[clamp(2rem,3.5vw,2.75rem)] leading-[1.15] font-heading font-medium">
+              Conveniently <span className="text-white">Located</span>
             </h2>
             
             <div className="space-y-8">
@@ -47,10 +47,22 @@ export default async function LocationSection() {
                 <div className="w-12 h-12 rounded-full bg-gold flex items-center justify-center flex-shrink-0 text-charcoal shadow-lg">
                   <Clock className="w-5 h-5" />
                 </div>
-                <div>
-                  <h4 className="font-semibold text-lg text-cream mb-1">Hours of Operation</h4>
-                  <p className="text-cream/70 mb-2">{hours}</p>
-                  <p className="text-cream/70 text-sm italic">{requirements}</p>
+                <div className="w-full">
+                  <h4 className="font-semibold text-lg text-cream mb-4">Hours of Operation</h4>
+                  
+                  {/* Detailed Schedule */}
+                  <div className="mb-6">
+                    <h5 className="font-semibold text-gold text-[13px] uppercase tracking-widest mb-4">Staffed & Detailing Hours</h5>
+                    <div className="space-y-2 text-cream/70 text-sm max-w-[260px]">
+                      <div className="flex justify-between"><span>Monday</span> <span>8 am – 5 pm</span></div>
+                      <div className="flex justify-between"><span>Tuesday</span> <span>8 am – 6:30 pm</span></div>
+                      <div className="flex justify-between"><span>Wednesday</span> <span>8 am – 6:30 pm</span></div>
+                      <div className="flex justify-between"><span>Thursday</span> <span>8 am – 6:30 pm</span></div>
+                      <div className="flex justify-between"><span>Friday</span> <span>8 am – 6:30 pm</span></div>
+                      <div className="flex justify-between"><span>Saturday</span> <span>8 am – 6:30 pm</span></div>
+                      <div className="flex justify-between"><span>Sunday</span> <span>8 am – 2 pm</span></div>
+                    </div>
+                  </div>
                 </div>
               </div>
               

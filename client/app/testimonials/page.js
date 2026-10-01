@@ -29,17 +29,17 @@ export default async function ReviewsPage() {
   // Hardcoded fallback removed to use dynamic data from database
 
   return (
-    <div className="pt-32 bg-cream min-h-screen">
+    <div className="pt-32 bg-[#111618] min-h-screen">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mb-24">
         
         <div className="text-center max-w-3xl mx-auto mb-16">
-          <div className="text-cream tracking-[0.12em] uppercase text-md mb-4 text-[12px] md:text-[13px] font-semibold">
+          <div className="text-gold tracking-[0.15em] uppercase text-md mb-4 text-[12px] md:text-[13px] font-bold">
             Testimonials
           </div>
-          <h1 className="font-heading font-medium md: text-cream capitalize mb-6 text-[clamp(2.5rem,5vw,4rem)] leading-[1.08] tracking-[-0.01em]">
+          <h1 className="font-heading font-medium md: text-white capitalize mb-6 text-[clamp(2.5rem,5vw,4rem)] leading-[1.08] tracking-[-0.01em]">
             What Our Clients Say
           </h1>
-          <p className="text-charcoal text-lg font-semibold max-w-2xl mx-auto">
+          <p className="text-white/80 text-lg font-semibold max-w-2xl mx-auto">
             Brooklyn's most trusted auto detailing shop, located in the heart of Park Slope.
           </p>
         </div>

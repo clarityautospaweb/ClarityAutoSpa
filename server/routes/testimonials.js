@@ -4,6 +4,7 @@ const { z } = require('zod');
 const Testimonial = require('../models/Testimonial');
 const requireAuth = require('../middleware/requireAuth');
 const upload = require('../middleware/upload');
+const optimizeImages = require('../middleware/imageOptimizer');
 const imagekit = require('../config/imagekit');
 
 // Zod validation schemas
@@ -64,7 +65,7 @@ router.patch('/:id', requireAuth, async (req, res) => {
     const updatedTestimonial = await Testimonial.findByIdAndUpdate(
       req.params.id,
       { $set: validatedData },
-      { new: true, runValidators: true }
+      { returnDocument: 'after', runValidators: true }
     );
 
     if (!updatedTestimonial) {
@@ -83,7 +84,7 @@ router.patch('/:id', requireAuth, async (req, res) => {
 
 // @route   POST /api/testimonials/:id/photo
 // @desc    Upload/replace testimonial customer photo (Admin)
-router.post('/:id/photo', requireAuth, upload.single('photo'), async (req, res) => {
+router.post('/:id/photo', requireAuth, upload.single('photo'), optimizeImages, async (req, res) => {
   try {
     if (!req.file) {
       return res.status(400).json({ error: 'No image file provided. Field name should be "photo".' });

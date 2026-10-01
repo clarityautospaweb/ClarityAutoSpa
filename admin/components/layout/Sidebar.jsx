@@ -51,6 +51,17 @@ export default function Sidebar({ activeTab, setActiveTab, handleLogout }) {
           Gallery
         </button>
         <button
+          onClick={() => setActiveTab("service-categories")}
+          className={`w-full flex items-center gap-3 px-4 py-2.5 rounded-lg text-sm font-medium transition-colors ${
+            activeTab === 'service-categories' 
+              ? 'bg-primary-light text-primary border-l-4 border-primary' 
+              : 'text-gray-600 hover:bg-gray-100 border-l-4 border-transparent'
+          }`}
+        >
+          <Tag className="w-4 h-4" />
+          Home Page Categories
+        </button>
+        <button
           onClick={() => setActiveTab("categories")}
           className={`w-full flex items-center gap-3 px-4 py-2.5 rounded-lg text-sm font-medium transition-colors ${
             activeTab === 'categories' 
@@ -59,7 +70,7 @@ export default function Sidebar({ activeTab, setActiveTab, handleLogout }) {
           }`}
         >
           <Tag className="w-4 h-4" />
-          Categories
+          Configuration (Old)
         </button>
         <button
           onClick={() => setActiveTab("submissions")}

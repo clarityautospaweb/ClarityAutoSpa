@@ -9,10 +9,10 @@ export const metadata = {
 
 export default function LocationPage() {
   return (
-    <div className="pt-24 bg-charcoal min-h-screen flex flex-col">
+    <div className="pt-24 bg-[#111618] min-h-screen flex flex-col">
       <div className="flex-grow">
         <LocationSection />
-        <section className="bg-cream py-24">
+        <section className="bg-[#111618] py-24">
           <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
             <QuoteForm />
           </div>

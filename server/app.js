@@ -39,3 +39,5 @@ app.use('/api/submissions', require('./routes/submissions'));
 app.get('/api/health', (req, res) => {
   res.status(200).json({ status: 'ok', message: 'Clarity Auto Spa API is running.' });
 });
+
+// Restarted server for .env changes

@@ -1,4 +1,49 @@
-import InfiniteSpiral from "@/components/animations/InfiniteSpiral";
+import InteractiveImageBentoGallery from "@/components/ui/bento-gallery";
+
+const fallbackItems = [
+  {
+    id: 1,
+    title: "Ceramic Coating",
+    desc: "Unmatched gloss and protection.",
+    url: "https://images.unsplash.com/photo-1601362840469-51e4d8d58785?auto=format&fit=crop&q=80&w=800", 
+    span: "md:col-span-2 md:row-span-2",
+  },
+  {
+    id: 2,
+    title: "Paint Correction",
+    desc: "Restoring the mirror finish.",
+    url: "https://images.unsplash.com/photo-1580273916550-e323be2ae537?auto=format&fit=crop&q=80&w=800",
+    span: "md:row-span-1",
+  },
+  {
+    id: 3,
+    title: "Interior Detailing",
+    desc: "Immaculate inside and out.",
+    url: "https://images.unsplash.com/photo-1600705722908-bab1e6190b4d?auto=format&fit=crop&q=80&w=800",
+    span: "md:row-span-1",
+  },
+  {
+    id: 4,
+    title: "Wheel & Tire Care",
+    desc: "Attention to every detail.",
+    url: "https://images.unsplash.com/photo-1619551734325-81aaf323686c?auto=format&fit=crop&q=80&w=800",
+    span: "md:row-span-2",
+  },
+  {
+    id: 5,
+    title: "Foam Wash",
+    desc: "Gentle and thorough cleaning.",
+    url: "https://images.unsplash.com/photo-1520340356584-f9917d1eea6f?auto=format&fit=crop&q=80&w=800",
+    span: "md:row-span-1",
+  },
+  {
+    id: 6,
+    title: "Engine Bay",
+    desc: "Spotless under the hood.",
+    url: "https://images.unsplash.com/photo-1610647752706-3bb12232b3bf?auto=format&fit=crop&q=80&w=800",
+    span: "md:col-span-2 md:row-span-1",
+  },
+];
 
 export default async function GallerySection() {
   let galleryImages = [];
@@ -8,67 +53,39 @@ export default async function GallerySection() {
       const data = await res.json();
       galleryImages = data
         .filter(img => img.showOnLandingPage)
-        .map(img => img.imageUrl || img.afterImageUrl)
-        .filter(Boolean);
+        .map((img, index) => {
+          const spans = [
+            "md:col-span-2 md:row-span-2", 
+            "md:row-span-1", 
+            "md:row-span-1", 
+            "md:row-span-2", 
+            "md:row-span-1", 
+            "md:col-span-2 md:row-span-1"
+          ];
+          return {
+            id: img._id || index,
+            title: img.title || "Premium Detailing",
+            desc: img.description || "Expert care for your vehicle.",
+            url: img.imageUrl || img.afterImageUrl,
+            span: spans[index % spans.length]
+          };
+        })
+        .filter(img => img.url);
     }
   } catch (error) {
     console.error("Network error fetching gallery:", error);
   }
 
-  // Ensure there is an array to avoid crashes if empty
-  if (!galleryImages.length) {
-    galleryImages = [];
-  }
+  // Use DB images if available, otherwise fallback to Unsplash
+  const itemsToDisplay = galleryImages.length > 0 ? galleryImages : fallbackItems;
+
   return (
-    <section id="gallery" className="py-24 bg-cream relative overflow-hidden">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-24 items-center min-h-[600px]">
-          
-          {/* Text Side */}
-          <div className="order-1 z-10">
-            <div className="inline-flex items-center gap-2 bg-cream-alt text-charcoal px-3 py-1 rounded-full tracking-[0.12em] uppercase mb-4 text-[12px] md:text-[13px] font-semibold">
-              <span className="w-1.5 h-1.5 rounded-full bg-gold"></span>
-              Our Work
-            </div>
-            <h2 className="font-heading text-charcoal mb-6 capitalize text-[clamp(2rem,3.5vw,2.75rem)] leading-[1.15] font-medium">
-              See the <br/>
-              <span className="font-semibold text-gold tracking-tight">Clarity</span> <br/>
-              Difference
-            </h2>
-            <p className="text-charcoal/80 text-lg leading-relaxed mb-10 max-w-lg">
-              Interact with our 3D gallery to see the transformative results of our premium detailing services. Every vehicle gets the white-glove treatment it deserves.
-            </p>
-            <a
-              href="/gallery"
-              className="inline-block bg-gold text-charcoal px-8 py-3 rounded-full font-semibold uppercase tracking-widest text-sm hover:bg-gold-hover transition-all shadow-lg"
-            >
-              View Full Gallery
-            </a>
-          </div>
-
-          {/* Spiral Side */}
-          <div className="order-2 h-[450px] sm:h-[550px] lg:h-[750px] w-full relative -mx-4 sm:mx-0">
-            <div className="absolute inset-0 lg:scale-[1.2] flex items-center justify-center">
-              {galleryImages.length > 0 ? (
-                <InfiniteSpiral 
-                  items={galleryImages} 
-                  animationMode="all" 
-                  cardWidth={200} 
-                  cardHeight={280} 
-                  radius={160} 
-                  perspective={1000}
-                  speed={0.4}
-                />
-              ) : (
-                <div className="text-cream text-center font-semibold">No gallery images available.</div>
-              )}
-            </div>
-          </div>
-
-          
-
-        </div>
-      </div>
-    </section>
+    <div id="gallery" className="w-full antialiased bg-[#111618] border-t border-white/10">
+      <InteractiveImageBentoGallery
+        imageItems={itemsToDisplay}
+        title="See the Clarity Difference"
+        description="Interact with our gallery to see the transformative results of our premium detailing services. Drag to explore, click to expand."
+      />
+    </div>
   );
 }

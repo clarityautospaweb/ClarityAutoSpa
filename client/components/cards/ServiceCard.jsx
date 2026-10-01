@@ -3,21 +3,19 @@
 import { ArrowUpRight } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
-import { useState } from "react";
 
 export default function ServiceCard({ service, onBookMiniDetail }) {
   const getPriceLabel = () => {
     if (!service.price || service.price === "0" || service.price === "") {
-      return <span className="text-sm">Quote on request</span>;
+      return "Quote";
     }
     switch (service.pricingType) {
-      case 'starts_at':
-        return <span className="whitespace-nowrap">Starts at<br/>${service.price}</span>;
-      case 'inspection':
-        return <span className="tabular-nums font-semibold text-2xl md:text-3xl">${service.price}</span>;
-      case 'fixed':
+      case "starts_at":
+        return `From $${service.price}`;
+      case "inspection":
+      case "fixed":
       default:
-        return <span className="tabular-nums font-semibold text-2xl md:text-3xl">${service.price}</span>;
+        return `$${service.price}`;
     }
   };
 
@@ -29,91 +27,86 @@ export default function ServiceCard({ service, onBookMiniDetail }) {
   };
 
   return (
-    <div className="bg-cream rounded-[2rem] p-2 transition-transform duration-300 hover:-translate-y-1 shadow-[0_4px_16px_rgba(52,52,52,0.08)] hover:shadow-2xl flex flex-col h-full group border border-grey">
-      
-      {/* Top Image Section */}
-      <div className="relative bg-cream-alt rounded-[1.5rem] overflow-hidden aspect-[4/3] flex flex-col">
-        {/* The Image */}
-        <div className="flex-1 relative overflow-hidden">
-          <Image 
-            src={service.imageUrl || "/img-6.jpg"} 
-            alt={service.name} 
-            fill
-            sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
-            className="object-cover group-hover:scale-105 transition-transform duration-700 absolute inset-0"
-          />
-        </div>
-      </div>
+    <div className="relative rounded-[2rem] overflow-hidden aspect-[3/4] md:aspect-[4/5] flex flex-col group shadow-lg border border-white/10">
+      {/* Background Image */}
+      <Image
+        src={service.imageUrl || "/img-6.jpg"}
+        alt={service.name}
+        fill
+        sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+        className="object-cover absolute inset-0 z-0 group-hover:scale-105 transition-transform duration-700"
+      />
 
-      {/* Content Section */}
-      <div className="px-4 pt-5 pb-4 flex-grow flex flex-col gap-4">
+      {/* Gradient Overlay (Smooth and dark) */}
+      <div className="absolute inset-0 bg-gradient-to-t from-[#111618] via-[#111618]/80 to-transparent z-10" />
+
+      {/* Content Container */}
+      <div className="relative z-20 flex flex-col justify-end h-full p-6">
         
-        {/* Left: Title & Tags */}
-        <div className="flex-1 flex flex-col">
-          <h3 className="font-sans font-semibold text-[22px] text-charcoal leading-tight tracking-tight mb-2">
+        {/* Decorative Dots */}
+        <div className="flex justify-center gap-1.5 mb-5 opacity-70">
+          <span className="w-1.5 h-1.5 rounded-full bg-white"></span>
+          <span className="w-1.5 h-1.5 rounded-full bg-white/40"></span>
+          <span className="w-1.5 h-1.5 rounded-full bg-white/40"></span>
+        </div>
+
+        {/* Title & Price Row */}
+        <div className="flex items-start justify-between mb-2 gap-4">
+          <h3 className="font-heading font-semibold text-[22px] md:text-2xl text-white leading-tight">
             {service.name}
           </h3>
-          
-          {service.description && (
-            <p className="text-sm text-charcoal-soft mb-3 line-clamp-3">
-              {service.description}
-            </p>
+          <div className="bg-black/40 backdrop-blur-md rounded-full px-3 py-1 shrink-0 border border-white/5">
+            <span className="text-white font-medium text-sm tabular-nums whitespace-nowrap">
+              {getPriceLabel()}
+            </span>
+          </div>
+        </div>
+
+        {/* Description */}
+        {service.description && (
+          <p className="text-white/70 text-sm leading-relaxed mb-4 line-clamp-3">
+            {service.description}
+          </p>
+        )}
+
+        {/* Tags / Pills */}
+        <div className="flex flex-wrap gap-2 mb-6">
+          {(service.vehicleSize || service.carType) && (
+            <span className="bg-white/10 backdrop-blur-md text-white px-3 py-1.5 rounded-full text-[11px] font-medium tracking-wide">
+              {(service.vehicleSize || service.carType).replace("_", " ")}
+            </span>
           )}
-
-          {/* Tags / Pills */}
-          <div className="flex flex-wrap gap-2 mb-3">
-            {(service.vehicleSize || service.carType) && (
-              <span className="bg-cream-alt text-charcoal px-3 py-1 rounded-full text-[10px] font-semibold tracking-wide uppercase">
-                {(service.vehicleSize || service.carType).replace('_', ' ')}
-              </span>
-            )}
-            {(service.turnaround || service.time) && (
-              <span className="bg-cream-alt text-charcoal px-3 py-1 rounded-full text-[10px] font-semibold tracking-wide">
-                {service.turnaround || service.time}
-              </span>
-            )}
-            {service.categoryId === 'specialty' && service.requiresAssessment && (
-              <span className="bg-cream-alt text-charcoal px-3 py-1 rounded-full text-[10px] font-semibold tracking-wide">
-                Assessment may be required
-              </span>
-            )}
-          </div>
+          {(service.turnaround || service.time) && (
+            <span className="bg-white/10 backdrop-blur-md text-white px-3 py-1.5 rounded-full text-[11px] font-medium tracking-wide">
+              {service.turnaround || service.time}
+            </span>
+          )}
+          {service.categoryId === "specialty" && service.requiresAssessment && (
+            <span className="bg-white/10 backdrop-blur-md text-white px-3 py-1.5 rounded-full text-[11px] font-medium tracking-wide">
+              Assessment
+            </span>
+          )}
         </div>
 
-        <div className="w-full h-[1px] bg-grey shrink-0 my-1 opacity-50" />
-
-        {/* Bottom: Price & CTAs */}
-        <div className="flex justify-between items-end gap-2 pt-2">
-          <div className="text-charcoal font-semibold text-lg leading-tight">
-            {getPriceLabel()}
-          </div>
-          
-          <div className="flex flex-col items-end gap-2">
-            {service.acuityLink ? (
-              <>
-                <a
-                  href={service.acuityLink}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  onClick={handlePrimaryClick}
-                  className="flex items-center gap-1 text-[12px] font-semibold text-charcoal hover:text-charcoal bg-gold hover:bg-gold-hover transition-colors whitespace-nowrap px-4 py-2 rounded-full"
-                >
-                  Book a Detail <ArrowUpRight className="w-3.5 h-3.5" />
-                </a>
-                <Link href={`/getquote?service=${encodeURIComponent(service.name)}`} className="text-[11px] font-medium text-charcoal-soft hover:text-charcoal underline underline-offset-2">
-                  Request a Quote
-                </Link>
-              </>
-            ) : (
-              <Link
-                href={`/getquote?service=${encodeURIComponent(service.name)}`}
-                className="flex items-center gap-1 text-[12px] font-semibold text-charcoal hover:text-charcoal bg-gold hover:bg-gold-hover transition-colors whitespace-nowrap px-4 py-2 rounded-full"
-              >
-                Request an Assessment <ArrowUpRight className="w-3.5 h-3.5" />
-              </Link>
-            )}
-          </div>
-        </div>
+        {/* CTA Button */}
+        {service.acuityLink ? (
+          <a
+            href={service.acuityLink}
+            target="_blank"
+            rel="noopener noreferrer"
+            onClick={handlePrimaryClick}
+            className="w-full bg-white text-charcoal py-3 rounded-full font-semibold text-[15px] text-center hover:bg-cream transition-colors"
+          >
+            Book Now
+          </a>
+        ) : (
+          <Link
+            href={`/getquote?service=${encodeURIComponent(service.name)}`}
+            className="w-full bg-white text-charcoal py-3 rounded-full font-semibold text-[15px] text-center hover:bg-cream transition-colors block"
+          >
+            Get Quote
+          </Link>
+        )}
       </div>
     </div>
   );

@@ -38,7 +38,7 @@ router.patch('/', requireAuth, async (req, res) => {
     const updatedSettings = await Settings.findByIdAndUpdate(
       settings._id,
       { $set: req.body },
-      { new: true, runValidators: true }
+      { returnDocument: 'after', runValidators: true }
     );
     res.json(updatedSettings);
   } catch (error) {

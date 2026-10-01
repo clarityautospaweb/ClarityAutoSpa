@@ -9,6 +9,7 @@ import ServicesTab from "../components/tabs/ServicesTab";
 import TestimonialsTab from "../components/tabs/TestimonialsTab";
 import GalleryTab from "../components/tabs/GalleryTab";
 import CategoriesTab from "../components/tabs/CategoriesTab";
+import ServiceCategoriesTab from "../components/tabs/ServiceCategoriesTab";
 import SubmissionsTab from "../components/tabs/SubmissionsTab";
 import SettingsTab from "../components/tabs/SettingsTab";
 export default function Dashboard() {
@@ -65,6 +66,7 @@ export default function Dashboard() {
             {activeTab === "testimonials" && <TestimonialsTab />}
             {activeTab === "gallery" && <GalleryTab />}
             {activeTab === "categories" && <CategoriesTab />}
+            {activeTab === "service-categories" && <ServiceCategoriesTab />}
             {activeTab === "submissions" && <SubmissionsTab />}
             {activeTab === "settings" && <SettingsTab />}
           </div>

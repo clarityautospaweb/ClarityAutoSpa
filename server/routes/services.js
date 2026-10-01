@@ -4,6 +4,7 @@ const { z } = require('zod');
 const Service = require('../models/Service');
 const requireAuth = require('../middleware/requireAuth');
 const upload = require('../middleware/upload');
+const optimizeImages = require('../middleware/imageOptimizer');
 const imagekit = require('../config/imagekit');
 
 // Zod validation schemas
@@ -32,6 +33,71 @@ router.get('/categories', async (req, res) => {
     res.json(categories);
   } catch (error) {
     console.error('Error fetching service categories:', error);
+    res.status(500).json({ error: 'Server Error' });
+  }
+});
+
+// @route   POST /api/services/categories
+// @desc    Create a new service category (Admin)
+router.post('/categories', requireAuth, async (req, res) => {
+  try {
+    const { title, description } = req.body;
+    if (!title) return res.status(400).json({ error: 'Title is required' });
+
+    const slug = title.toLowerCase().replace(/[^a-z0-9]+/g, '-');
+    const existing = await ServiceCategory.findOne({ slug });
+    if (existing) return res.status(400).json({ error: 'Category already exists' });
+
+    const count = await ServiceCategory.countDocuments();
+    const newCategory = new ServiceCategory({
+      title: title.trim(),
+      slug,
+      description: description?.trim() || "",
+      order: count
+    });
+    
+    await newCategory.save();
+    res.status(201).json(newCategory);
+  } catch (error) {
+    console.error('Error creating service category:', error);
+    res.status(500).json({ error: 'Server Error' });
+  }
+});
+
+// @route   PATCH /api/services/categories/:id
+// @desc    Update a service category (Admin)
+router.patch('/categories/:id', requireAuth, async (req, res) => {
+  try {
+    const { title, description, enabled, order } = req.body;
+    const updates = {};
+    if (title !== undefined) updates.title = title.trim();
+    if (description !== undefined) updates.description = description.trim();
+    if (enabled !== undefined) updates.enabled = enabled;
+    if (order !== undefined) updates.order = order;
+
+    const category = await ServiceCategory.findByIdAndUpdate(
+      req.params.id, 
+      { $set: updates }, 
+      { returnDocument: 'after' }
+    );
+    if (!category) return res.status(404).json({ error: 'Category not found' });
+    
+    res.json(category);
+  } catch (error) {
+    console.error('Error updating service category:', error);
+    res.status(500).json({ error: 'Server Error' });
+  }
+});
+
+// @route   DELETE /api/services/categories/:id
+// @desc    Delete a service category (Admin)
+router.delete('/categories/:id', requireAuth, async (req, res) => {
+  try {
+    const category = await ServiceCategory.findByIdAndDelete(req.params.id);
+    if (!category) return res.status(404).json({ error: 'Category not found' });
+    res.json({ message: 'Category removed successfully' });
+  } catch (error) {
+    console.error('Error deleting service category:', error);
     res.status(500).json({ error: 'Server Error' });
   }
 });
@@ -100,7 +166,7 @@ router.patch('/:id', requireAuth, async (req, res) => {
 
 // @route   POST /api/services/:id/image
 // @desc    Upload/replace service image (Admin)
-router.post('/:id/image', requireAuth, upload.single('image'), async (req, res) => {
+router.post('/:id/image', requireAuth, upload.single('image'), optimizeImages, async (req, res) => {
   try {
     if (!req.file) {
       return res.status(400).json({ error: 'No image file provided. Field name should be "image".' });

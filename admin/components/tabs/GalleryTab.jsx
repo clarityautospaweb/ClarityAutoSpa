@@ -354,19 +354,40 @@ export default function GalleryTab() {
                 <div>
                   <label className="block text-sm font-medium text-gray-900 mb-1">Image</label>
                   <input type="file" accept="image/*" onChange={e => setSelectedFile(e.target.files[0])} className="w-full px-3 py-2 border rounded-lg" />
-                  {selectedFile && <img src={URL.createObjectURL(selectedFile)} alt="Preview" className="mt-2 h-32 object-cover rounded-lg" />}
+                  {selectedFile && (
+                    <div className="relative w-fit mt-2 group">
+                      <img src={URL.createObjectURL(selectedFile)} alt="Preview" className="h-32 object-cover rounded-lg" />
+                      <button type="button" onClick={() => setSelectedFile(null)} className="absolute -top-2 -right-2 bg-white text-red-500 rounded-full p-1 shadow hover:bg-red-50 border border-gray-200 opacity-0 group-hover:opacity-100 transition-opacity">
+                        <Trash2 className="w-4 h-4" />
+                      </button>
+                    </div>
+                  )}
                 </div>
               ) : (
                 <div className="space-y-4">
                   <div>
                     <label className="block text-sm font-medium text-gray-900 mb-1">Before Image</label>
                     <input type="file" accept="image/*" onChange={e => setBeforeFile(e.target.files[0])} className="w-full px-3 py-2 border rounded-lg" />
-                    {beforeFile && <img src={URL.createObjectURL(beforeFile)} alt="Before" className="mt-2 h-32 object-cover rounded-lg" />}
+                    {beforeFile && (
+                      <div className="relative w-fit mt-2 group">
+                        <img src={URL.createObjectURL(beforeFile)} alt="Before" className="h-32 object-cover rounded-lg" />
+                        <button type="button" onClick={() => setBeforeFile(null)} className="absolute -top-2 -right-2 bg-white text-red-500 rounded-full p-1 shadow hover:bg-red-50 border border-gray-200 opacity-0 group-hover:opacity-100 transition-opacity">
+                          <Trash2 className="w-4 h-4" />
+                        </button>
+                      </div>
+                    )}
                   </div>
                   <div>
                     <label className="block text-sm font-medium text-gray-900 mb-1">After Image</label>
                     <input type="file" accept="image/*" onChange={e => setAfterFile(e.target.files[0])} className="w-full px-3 py-2 border rounded-lg" />
-                    {afterFile && <img src={URL.createObjectURL(afterFile)} alt="After" className="mt-2 h-32 object-cover rounded-lg" />}
+                    {afterFile && (
+                      <div className="relative w-fit mt-2 group">
+                        <img src={URL.createObjectURL(afterFile)} alt="After" className="h-32 object-cover rounded-lg" />
+                        <button type="button" onClick={() => setAfterFile(null)} className="absolute -top-2 -right-2 bg-white text-red-500 rounded-full p-1 shadow hover:bg-red-50 border border-gray-200 opacity-0 group-hover:opacity-100 transition-opacity">
+                          <Trash2 className="w-4 h-4" />
+                        </button>
+                      </div>
+                    )}
                   </div>
                 </div>
               )}

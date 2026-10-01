@@ -327,13 +327,24 @@ export default function ServicesTab() {
                     </p>
                   </div>
                 </div>
-                {(imageFile || formData.imageUrl) && (
-                  <div className="mt-4 flex justify-center">
+                                {(imageFile || formData.imageUrl) && (
+                  <div className="mt-4 flex justify-center relative w-fit mx-auto group">
                     <img 
                       src={imageFile ? URL.createObjectURL(imageFile) : formData.imageUrl} 
                       alt="Preview" 
                       className="w-32 h-32 object-cover rounded-lg border border-gray-300" 
                     />
+                    <button 
+                      type="button" 
+                      onClick={() => {
+                        setImageFile(null);
+                        setFormData({ ...formData, imageUrl: "", imageId: "" });
+                      }}
+                      className="absolute -top-2 -right-2 bg-white text-red-500 rounded-full p-1.5 shadow-md hover:bg-red-50 border border-gray-200 opacity-0 group-hover:opacity-100 transition-opacity"
+                      title="Remove image"
+                    >
+                      <Trash2 className="w-4 h-4" />
+                    </button>
                   </div>
                 )}
               </div>

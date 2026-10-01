@@ -3,7 +3,7 @@ export const contactInfo = {
   address: "117 14th St, Brooklyn, NY 11215",
   hours: "Open until 6:30 pm",
   website: "claritybk.as.me",
-  email: "clarityautospabk@gmail.com"
+  email: "clarityautospabk@gmail.com",
 };
 
 export const stats = [
@@ -17,63 +17,70 @@ export const services = [
   {
     id: "mini_detail",
     title: "Wash & Vacuum",
-    description: "Exterior hand wash and thorough interior cleaning. Starting at $125.",
+    description:
+      "Exterior hand wash and thorough interior cleaning. Starting at $125.",
     price: "$125+",
-   
-    image: "https://images.unsplash.com/photo-1601362840469-51e4d8d58785?q=80&w=600&auto=format&fit=crop",
+
+    image:
+      "https://images.unsplash.com/photo-1601362840469-51e4d8d58785?q=80&w=600&auto=format&fit=crop",
     popular: false,
   },
   {
     id: "full_detail",
     title: "Full Detailing",
-    description: "Complete interior and exterior reset for a factory-fresh feel. Starting at $379.",
+    description:
+      "Complete interior and exterior reset for a factory-fresh feel. Starting at $379.",
     price: "$379+",
-   
-    image: "https://images.unsplash.com/photo-1708805282683-50a060eba80f?q=80&w=735&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+
+    image:
+      "https://images.unsplash.com/photo-1708805282683-50a060eba80f?q=80&w=735&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
     popular: true,
   },
   {
     id: "ceramic",
     title: "Paint Correction + Ceramic",
-    description: "Swirl removal and long-lasting ceramic coating. Starting at $761.",
+    description:
+      "Swirl removal and long-lasting ceramic coating. Starting at $761.",
     price: "$761+",
-    
-    image: "https://plus.unsplash.com/premium_photo-1682148721164-f9793d575d61?q=80&w=1470&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+
+    image:
+      "https://plus.unsplash.com/premium_photo-1682148721164-f9793d575d61?q=80&w=1470&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
     popular: false,
   },
   {
     id: "wraps",
     title: "Vinyl Wraps & PPF",
-    description: "Full color change wraps and Xpel Paint Protection Film. Starting at $3,500.",
+    description:
+      "Full color change wraps and Xpel Paint Protection Film. Starting at $3,500.",
     price: "$3.5k+",
-  
-    image: "https://images.unsplash.com/photo-1747842914486-481cc1c7a04a?q=80&w=1470&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+
+    image:
+      "https://images.unsplash.com/photo-1747842914486-481cc1c7a04a?q=80&w=1470&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
     popular: false,
   },
 ];
 
-
-
 export const whyUsPoints = [
   {
-    title: "Always Open",
-    description: "Our bays are open 24 hours a day, 7 days a week for your convenience.",
-    icon: "Clock",
-  },
-  {
     title: "Flood & Mold Cleaning",
-    description: "Interior cleaning, drying and odor treatment for water-affected vehicles. We clean, dry and treat vehicle interiors. We do not repair mechanical or electrical damage caused by flooding.",
+    description:
+      "Interior cleaning, drying and odor treatment for water-affected vehicles. We clean, dry and treat vehicle interiors. We do not repair mechanical or electrical damage caused by flooding.",
     icon: "Leaf",
+    image: "/whyus/flood.jpg",
   },
   {
     title: "Dedicated Team",
-    description: "Our detailing team is committed to providing excellent care for your vehicle.",
+    description:
+      "Our detailing team is committed to providing excellent care for your vehicle.",
     icon: "BadgeCheck",
+    image: "/whyus/team.jpg",
   },
   {
     title: "Satisfaction Guaranteed",
-    description: "If you're not happy with the wash, we'll re-wash it for free.",
+    description:
+      "If you're not happy with the wash, we'll re-wash it for free.",
     icon: "ThumbsUp",
+    image: "/whyus/satisfaction.png",
   },
 ];
 

@@ -195,13 +195,24 @@ export default function QuoteForm() {
             onChange={e => setFormData({...formData, serviceNeeded: e.target.value})}
           >
             <option value="" disabled>Select a service...</option>
-            {categories.filter(c => c.enabled).map(cat => (
-              <optgroup key={cat.slug} label={cat.title}>
-                {services.filter(s => s.categoryId === cat.slug).sort((a,b) => (a.displayOrder||0) - (b.displayOrder||0)).map(s => (
-                  <option key={s._id || s.id} value={s.name}>{s.name}</option>
-                ))}
-              </optgroup>
-            ))}
+            {categories.filter(c => c.enabled).map(cat => {
+              const catServices = services.filter(s => 
+                s.categoryId === cat.slug ||
+                (s.categoryId && s.categoryId.replace(/_/g, '-') === cat.slug) ||
+                (s.category && s.category.toLowerCase().replace(/[^a-z0-9]/g, '') === cat.title.toLowerCase().replace(/[^a-z0-9]/g, '')) ||
+                (s.category && cat.title.toLowerCase().includes(s.category.toLowerCase()))
+              ).sort((a,b) => (a.displayOrder||0) - (b.displayOrder||0));
+
+              if (catServices.length === 0) return null;
+
+              return (
+                <optgroup key={cat.slug} label={cat.title}>
+                  {catServices.map(s => (
+                    <option key={s._id || s.id} value={s.name}>{s.name}</option>
+                  ))}
+                </optgroup>
+              );
+            })}
             <option value="Not sure">Not sure / Need assessment</option>
           </select>
         </div>

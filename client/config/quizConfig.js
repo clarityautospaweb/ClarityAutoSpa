@@ -5,7 +5,10 @@ export const quizOptions = [
   { id: 4, label: "Heavy dirt, sand or mud" },
   { id: 5, label: "Lingering smoke, food or pet odors" },
   { id: 6, label: "Mold, mildew, rodent debris or water-soaked carpets" },
-  { id: 7, label: "None of these—just light dust, loose crumbs and routine cleaning" },
+  {
+    id: 7,
+    label: "None of these—just light dust, loose crumbs and routine cleaning",
+  },
 ];
 
 export const DEEP = [1, 2, 3, 4, 5];
@@ -17,7 +20,7 @@ export const quizResults = {
     id: "MINI",
     title: "Mini Detail",
     copy: "Perfect for routine upkeep: a hand wash, vacuum and interior surface wipe-down.",
-    targetSlug: "mini-detail"
+    targetSlug: "mini-detail",
   },
   DEEP: {
     id: "DEEP",
@@ -28,6 +31,6 @@ export const quizResults = {
     id: "SPECIALTY",
     title: "Specialty Cleaning Assessment",
     copy: "Contact us before booking so we can assess the condition and recommend the appropriate treatment.",
-    targetSlug: "specialty"
-  }
+    targetSlug: "specialty",
+  },
 };

@@ -1,4 +1,5 @@
-import ReviewCard from "@/components/cards/ReviewCard";
+import ReviewsCarousel from "./ReviewsCarousel";
+import { reviews as fallbackReviews } from "@/lib/siteData";
 
 export default async function ReviewsSection() {
   let settings = null;
@@ -15,7 +16,7 @@ export default async function ReviewsSection() {
         source: "Google review",
         rating: t.rating,
         text: t.quote,
-        photo: t.photoUrl
+        featured: t.featured !== undefined ? t.featured : true
       }));
     }
     if (settingsRes.ok) {
@@ -29,28 +30,21 @@ export default async function ReviewsSection() {
   const reviewCount = settings?.reviewCount || 133;
   const googleUrl = settings?.googleReviewsUrl || "#";
 
-  return (
-    <section id="reviews" className="py-24 bg-cream">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="text-center max-w-3xl mx-auto mb-16">
-          <div className="inline-flex items-center gap-2 bg-cream-alt text-charcoal px-3 py-1 rounded-full tracking-[0.12em] uppercase mb-4 text-[12px] md:text-[13px] font-semibold">
-            <span className="text-gold">★</span>
-            <span>{rating} Google Rating · {reviewCount} Reviews</span>
-          </div>
-          <h2 className="font-medium capitalize text-charcoal mb-6 text-[clamp(2rem,3.5vw,2.75rem)] leading-[1.15] font-heading">
-            What Our Clients Say
-          </h2>
-          <a href={googleUrl} target="_blank" rel="noopener noreferrer" className="inline-block mt-2 text-charcoal text-sm font-semibold uppercase tracking-widest bg-gold px-6 py-3 rounded-full hover:bg-gold-hover transition-colors shadow-lg">
-            Read all reviews on Google
-          </a>
-        </div>
+  // Use featured reviews from DB, otherwise all from DB, otherwise fallback
+  let displayReviews = mappedReviews.filter(r => r.featured);
+  if (displayReviews.length === 0) {
+    displayReviews = mappedReviews;
+  }
+  if (displayReviews.length === 0) {
+    displayReviews = fallbackReviews;
+  }
 
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-6 lg:gap-8">
-          {mappedReviews.slice(0, 3).map((review, index) => (
-            <ReviewCard key={index} review={review} />
-          ))}
-        </div>
-      </div>
-    </section>
+  return (
+    <ReviewsCarousel 
+      reviews={displayReviews} 
+      rating={rating} 
+      reviewCount={reviewCount} 
+      googleUrl={googleUrl} 
+    />
   );
 }

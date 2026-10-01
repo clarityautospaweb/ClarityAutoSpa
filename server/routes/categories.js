@@ -112,7 +112,7 @@ router.patch('/:id', requireAuth, async (req, res) => {
     if (name !== undefined) updates.name = name.trim();
     if (displayOrder !== undefined) updates.displayOrder = displayOrder;
 
-    const category = await Category.findByIdAndUpdate(req.params.id, updates, { new: true });
+    const category = await Category.findByIdAndUpdate(req.params.id, updates, { returnDocument: 'after' });
     if (!category) {
       return res.status(404).json({ error: 'Category not found' });
     }
