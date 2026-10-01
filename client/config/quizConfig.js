@@ -6,6 +6,10 @@ export const quizOptions = [
   { id: 5, label: "Lingering smoke, food or pet odors" },
   { id: 6, label: "Mold, mildew, rodent debris or water-soaked carpets" },
   {
+    id: 8,
+    label: "Does your vehicle have bird droppings, tree sap, dirt, mud, bug splatter, or other exterior buildup—or do you simply want it to sparkle and shine like new?",
+  },
+  {
     id: 7,
     label: "None of these—just light dust, loose crumbs and routine cleaning",
   },
@@ -13,6 +17,7 @@ export const quizOptions = [
 
 export const DEEP = [1, 2, 3, 4, 5];
 export const SPECIALTY = [6];
+export const EXTERIOR = [8];
 export const NONE = 7;
 
 export const quizResults = {
@@ -33,4 +38,10 @@ export const quizResults = {
     copy: "Contact us before booking so we can assess the condition and recommend the appropriate treatment.",
     targetSlug: "specialty",
   },
+  FULL: {
+    id: "FULL",
+    title: "Full Detail",
+    copy: "Based on your selections, we recommend a Full Detail for comprehensive interior and exterior care.",
+    targetSlug: "full-detail",
+  }
 };

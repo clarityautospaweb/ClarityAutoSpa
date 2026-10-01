@@ -1,10 +1,10 @@
 "use client";
 
 import { useState, useRef, useEffect } from "react";
-import { quizOptions, DEEP, SPECIALTY, NONE, quizResults } from "@/config/quizConfig";
+import { quizOptions, DEEP, SPECIALTY, EXTERIOR, NONE, quizResults } from "@/config/quizConfig";
 import ServiceCard from "@/components/cards/ServiceCard";
 import Link from "next/link";
-import { PawPrint, CupSoda, Armchair, Mountain, Wind, Bug, CheckCircle2 } from "lucide-react";
+import { PawPrint, CupSoda, Armchair, Mountain, Wind, Bug, CheckCircle2, Sparkles } from "lucide-react";
 
 export default function ServiceQuiz({ services = [], categories = [], onBookMiniDetail }) {
   const [selected, setSelected] = useState([]);
@@ -39,12 +39,15 @@ export default function ServiceQuiz({ services = [], categories = [], onBookMini
     
     const hasSpecialty = selected.some(s => SPECIALTY.includes(s));
     const hasDeep = selected.some(s => DEEP.includes(s));
+    const hasExterior = selected.some(s => EXTERIOR.includes(s));
     
     if (hasSpecialty) {
       res = quizResults.SPECIALTY;
+    } else if (hasExterior && hasDeep) {
+      res = quizResults.FULL;
     } else if (hasDeep) {
       res = quizResults.DEEP;
-    } else if (selected.includes(NONE)) {
+    } else if (hasExterior || selected.includes(NONE)) {
       res = quizResults.MINI;
     }
 
@@ -70,6 +73,7 @@ export default function ServiceQuiz({ services = [], categories = [], onBookMini
     
     let targetSlug = null;
     if (result.id === "MINI") targetSlug = "mini-detail";
+    if (result.id === "FULL") targetSlug = "full-detail";
     if (result.id === "DEEP") {
       if (followUpResponse === 'yes') targetSlug = "full-detail";
       else if (followUpResponse === 'no') targetSlug = "interior-detail";
@@ -120,6 +124,7 @@ export default function ServiceQuiz({ services = [], categories = [], onBookMini
               else if (opt.id === 5) Icon = Wind;
               else if (opt.id === 6) Icon = Bug;
               else if (opt.id === 7) Icon = CheckCircle2;
+              else if (opt.id === 8) Icon = Sparkles;
               else Icon = CheckCircle2;
 
               return (
