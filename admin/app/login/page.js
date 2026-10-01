@@ -62,14 +62,14 @@ export default function LoginPage() {
         <form onSubmit={handleLogin} className="space-y-5">
           <div>
             <label className="block text-sm font-bold text-gray-700 mb-1 uppercase tracking-wide">
-              Email Address
+              Username
             </label>
             <input
-              type="email"
+              type="text"
               value={email}
               onChange={(e) => setEmail(e.target.value)}
               className="w-full px-4 py-3 rounded-xl border border-gray-300 focus:ring-2 focus:ring-black focus:border-black outline-none transition-all text-black bg-cream"
-              placeholder="admin@clarityautospa.com"
+              placeholder="clarityautospa"
               required
             />
           </div>
