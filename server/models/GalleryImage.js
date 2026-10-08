@@ -11,6 +11,8 @@ const galleryImageSchema = new mongoose.Schema(
     beforeImageId: { type: String, required: false }, // For Before/After
     afterImageUrl: { type: String, required: false }, // For Before/After
     afterImageId: { type: String, required: false }, // For Before/After
+    videoUrl: { type: String, required: false }, // For Video
+    videoId: { type: String, required: false }, // For Video
     displayOrder: { type: Number, default: 0 },
     showOnLandingPage: { type: Boolean, default: false },
   },

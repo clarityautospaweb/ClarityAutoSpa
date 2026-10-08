@@ -4,11 +4,14 @@ const multer = require('multer');
 const storage = multer.memoryStorage();
 
 const fileFilter = (req, file, cb) => {
-  // Accept only jpg, jpeg, png, webp
+  // Accept only jpg, jpeg, png, webp, mp4, webm, quicktime
   if (
     file.mimetype === 'image/jpeg' ||
     file.mimetype === 'image/png' ||
-    file.mimetype === 'image/webp'
+    file.mimetype === 'image/webp' ||
+    file.mimetype === 'video/mp4' ||
+    file.mimetype === 'video/webm' ||
+    file.mimetype === 'video/quicktime'
   ) {
     cb(null, true);
   } else {

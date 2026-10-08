@@ -46,11 +46,23 @@ const ImageModal = ({ item, onClose }) => {
         className="relative w-full max-w-4xl p-4"
         onClick={(e) => e.stopPropagation()}
       >
-        <img
-          src={item.url}
-          alt={item.title}
-          className="h-auto max-h-[90vh] w-full rounded-lg object-contain"
-        />
+        {item.type === 'video' ? (
+          <video
+            src={item.url}
+            className="h-auto max-h-[90vh] w-full rounded-lg object-contain"
+            autoPlay
+            controls
+            loop
+            muted
+            playsInline
+          />
+        ) : (
+          <img
+            src={item.url}
+            alt={item.title}
+            className="h-auto max-h-[90vh] w-full rounded-lg object-contain"
+          />
+        )}
       </motion.div>
       <button
         onClick={onClose}
@@ -152,11 +164,22 @@ const InteractiveImageBentoGallery = ({ imageItems, title, description }) => {
                 tabIndex={0}
                 aria-label={`View ${item.title}`}
               >
-                <img
-                  src={item.url}
-                  alt={item.title}
-                  className="absolute inset-0 h-full w-full object-cover transition-transform duration-500 group-hover:scale-105"
-                />
+                {item.type === 'video' ? (
+                  <video
+                    src={item.url}
+                    className="absolute inset-0 h-full w-full object-cover transition-transform duration-500 group-hover:scale-105"
+                    autoPlay
+                    loop
+                    muted
+                    playsInline
+                  />
+                ) : (
+                  <img
+                    src={item.url}
+                    alt={item.title}
+                    className="absolute inset-0 h-full w-full object-cover transition-transform duration-500 group-hover:scale-105"
+                  />
+                )}
                 <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-black/80 via-black/40 to-transparent opacity-0 transition-opacity duration-500 group-hover:opacity-100" />
                 <div className="relative z-10 translate-y-4 opacity-0 transition-all duration-500 group-hover:translate-y-0 group-hover:opacity-100">
                   <h3 className="text-lg font-bold text-white">{item.title}</h3>

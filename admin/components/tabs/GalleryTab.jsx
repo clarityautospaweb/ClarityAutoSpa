@@ -74,6 +74,9 @@ export default function GalleryTab() {
     if (formData.imageType === 'Plain Image' && !selectedFile) {
       return alert('Please select an image.');
     }
+    if (formData.imageType === 'Video' && !selectedFile) {
+      return alert('Please select a video.');
+    }
     if (formData.imageType === 'Before/After' && (!beforeFile || !afterFile)) {
       return alert('Please select both before and after images.');
     }
@@ -84,6 +87,8 @@ export default function GalleryTab() {
       const data = new FormData();
       if (formData.imageType === 'Plain Image') {
         data.append("image", selectedFile);
+      } else if (formData.imageType === 'Video') {
+        data.append("video", selectedFile);
       } else {
         data.append("beforeImage", beforeFile);
         data.append("afterImage", afterFile);
@@ -221,6 +226,8 @@ export default function GalleryTab() {
                         <div className="aspect-square">
                           {img.imageType === 'Plain Image' ? (
                             <img src={img.imageUrl} alt="Gallery" className="w-full h-full object-cover" />
+                          ) : img.imageType === 'Video' ? (
+                            <video src={img.videoUrl} className="w-full h-full object-cover" autoPlay loop muted playsInline />
                           ) : (
                             <div className="flex h-full w-full">
                               <img src={img.beforeImageUrl} alt="Before" className="w-1/2 h-full object-cover border-r border-cream/50" />
@@ -333,6 +340,7 @@ export default function GalleryTab() {
                 >
                   <option value="Plain Image">Plain Image</option>
                   <option value="Before/After">Before/After</option>
+                  <option value="Video">Video</option>
                 </select>
               </div>
 
@@ -357,6 +365,19 @@ export default function GalleryTab() {
                   {selectedFile && (
                     <div className="relative w-fit mt-2 group">
                       <img src={URL.createObjectURL(selectedFile)} alt="Preview" className="h-32 object-cover rounded-lg" />
+                      <button type="button" onClick={() => setSelectedFile(null)} className="absolute -top-2 -right-2 bg-white text-red-500 rounded-full p-1 shadow hover:bg-red-50 border border-gray-200 opacity-0 group-hover:opacity-100 transition-opacity">
+                        <Trash2 className="w-4 h-4" />
+                      </button>
+                    </div>
+                  )}
+                </div>
+              ) : formData.imageType === 'Video' ? (
+                <div>
+                  <label className="block text-sm font-medium text-gray-900 mb-1">Video</label>
+                  <input type="file" accept="video/*" onChange={e => setSelectedFile(e.target.files[0])} className="w-full px-3 py-2 border rounded-lg" />
+                  {selectedFile && (
+                    <div className="relative w-fit mt-2 group">
+                      <video src={URL.createObjectURL(selectedFile)} className="h-32 object-cover rounded-lg" controls />
                       <button type="button" onClick={() => setSelectedFile(null)} className="absolute -top-2 -right-2 bg-white text-red-500 rounded-full p-1 shadow hover:bg-red-50 border border-gray-200 opacity-0 group-hover:opacity-100 transition-opacity">
                         <Trash2 className="w-4 h-4" />
                       </button>
@@ -418,6 +439,8 @@ export default function GalleryTab() {
             <div className="mb-4 rounded-lg overflow-hidden border border-gray-200">
               {editingImage.imageType === 'Plain Image' ? (
                 <img src={editingImage.imageUrl} alt="Current" className="w-full h-40 object-cover" />
+              ) : editingImage.imageType === 'Video' ? (
+                <video src={editingImage.videoUrl} className="w-full h-40 object-cover" autoPlay loop muted playsInline />
               ) : (
                 <div className="flex h-40 w-full">
                   <div className="w-1/2 relative">

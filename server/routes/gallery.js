@@ -24,8 +24,8 @@ router.get('/', async (req, res) => {
 });
 
 // @route   POST /api/gallery
-// @desc    Upload new gallery image (Admin)
-router.post('/', requireAuth, upload.fields([{ name: 'image', maxCount: 1 }, { name: 'beforeImage', maxCount: 1 }, { name: 'afterImage', maxCount: 1 }]), optimizeImages, async (req, res) => {
+// @desc    Upload new gallery image/video (Admin)
+router.post('/', requireAuth, upload.fields([{ name: 'image', maxCount: 1 }, { name: 'beforeImage', maxCount: 1 }, { name: 'afterImage', maxCount: 1 }, { name: 'video', maxCount: 1 }]), optimizeImages, async (req, res) => {
   try {
     const imageType = req.body.imageType || 'Plain Image';
     let newImageData = {
@@ -47,6 +47,17 @@ router.post('/', requireAuth, upload.fields([{ name: 'image', maxCount: 1 }, { n
       });
       newImageData.imageUrl = uploadResponse.url;
       newImageData.imageId = uploadResponse.fileId;
+    } else if (imageType === 'Video') {
+      const file = req.files['video'] ? req.files['video'][0] : null;
+      if (!file) return res.status(400).json({ error: 'No video file provided.' });
+      
+      const uploadResponse = await imagekit.files.upload({
+        file: file.buffer.toString('base64'),
+        fileName: `gallery_video_${Date.now()}`,
+        folder: '/clarity_auto_spa/gallery',
+      });
+      newImageData.videoUrl = uploadResponse.url;
+      newImageData.videoId = uploadResponse.fileId;
     } else {
       const beforeFile = req.files['beforeImage'] ? req.files['beforeImage'][0] : null;
       const afterFile = req.files['afterImage'] ? req.files['afterImage'][0] : null;
@@ -123,6 +134,9 @@ router.delete('/:id', requireAuth, async (req, res) => {
     }
     if (image.afterImageId) {
       try { await imagekit.files.delete(image.afterImageId); } catch (err) {}
+    }
+    if (image.videoId) {
+      try { await imagekit.files.delete(image.videoId); } catch (err) {}
     }
 
     await GalleryImage.findByIdAndDelete(req.params.id);

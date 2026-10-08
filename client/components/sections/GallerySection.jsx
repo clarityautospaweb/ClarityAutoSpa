@@ -66,7 +66,8 @@ export default async function GallerySection() {
             id: img._id || index,
             title: img.title || "Premium Detailing",
             desc: img.description || "Expert care for your vehicle.",
-            url: img.imageUrl || img.afterImageUrl,
+            url: img.imageType === 'Video' ? img.videoUrl : (img.imageUrl || img.afterImageUrl),
+            type: img.imageType === 'Video' ? 'video' : 'image',
             span: spans[index % spans.length]
           };
         })

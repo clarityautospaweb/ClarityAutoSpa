@@ -19,7 +19,7 @@ export default async function GalleryPage() {
   }
 
   const beforeAfters = images.filter((img) => img.imageType === "Before/After");
-  const plainImages = images.filter((img) => img.imageType === "Plain Image");
+  const plainImagesAndVideos = images.filter((img) => img.imageType === "Plain Image" || img.imageType === "Video");
 
   return (
     <div className="pt-52 pb-24 bg-[#111618] min-h-screen">
@@ -61,19 +61,30 @@ export default async function GalleryPage() {
         )}
       </div>
 
-      {plainImages.length > 0 && (
+      {plainImagesAndVideos.length > 0 && (
         <div className="w-full px-4 sm:px-6">
           <div className="columns-1 sm:columns-2 md:columns-3 lg:columns-4 gap-4 space-y-4">
-            {plainImages.map((item) => (
+            {plainImagesAndVideos.map((item) => (
               <div
                 key={item._id}
                 className="break-inside-avoid relative rounded-2xl overflow-hidden shadow-md group"
               >
-                <img
-                  src={item.imageUrl}
-                  alt={item.title || "Gallery Image"}
-                  className="w-full h-auto object-cover group-hover:scale-105 transition-transform duration-500"
-                />
+                {item.imageType === 'Video' ? (
+                  <video
+                    src={item.videoUrl}
+                    className="w-full h-auto object-cover group-hover:scale-105 transition-transform duration-500"
+                    autoPlay
+                    loop
+                    muted
+                    playsInline
+                  />
+                ) : (
+                  <img
+                    src={item.imageUrl}
+                    alt={item.title || "Gallery Image"}
+                    className="w-full h-auto object-cover group-hover:scale-105 transition-transform duration-500"
+                  />
+                )}
                 {item.title && (
                   <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/80 to-transparent p-4 opacity-0 group-hover:opacity-100 transition-opacity">
                     <p className="text-cream font-medium text-sm">
