@@ -17,7 +17,7 @@ export default async function LocationSection() {
   const requirements = settings?.appointmentRequirements || "Appointment required for specialty services. Walk-ins welcome for basic washes.";
 
   return (
-    <section id="location" className="py-24 bg-[#111618] border-t border-white/10">
+    <section id="location" className="py-24 bg-[#0b0e10] border-t border-white/10">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
           

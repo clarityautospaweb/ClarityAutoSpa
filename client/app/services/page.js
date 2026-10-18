@@ -1,3 +1,4 @@
+import Image from "next/image";
 import ServicesContent from "@/components/sections/ServicesContent";
 
 export const dynamic = "force-dynamic";
@@ -26,8 +27,23 @@ export default async function ServicesPage() {
   }
 
   return (
-    <div className="pt-24 min-h-screen bg-[#111618]">
-      <ServicesContent services={services} categories={categories} />
+    <div className="relative pt-24 min-h-screen bg-[#0b0e10] overflow-hidden">
+      <div className="absolute inset-0 z-0 pointer-events-none select-none">
+        <Image
+          src="/porche_front.jpeg"
+          alt="Clarity Auto Spa Services"
+          fill
+          priority
+          sizes="100vw"
+          quality={90}
+          className="object-cover object-top"
+        />
+        <div className="absolute inset-0 bg-black/60" />
+        <div className="absolute inset-0 bg-gradient-to-b from-black/80 via-transparent to-[#0b0e10]" />
+      </div>
+      <div className="relative z-10">
+        <ServicesContent services={services} categories={categories} />
+      </div>
     </div>
   );
 }

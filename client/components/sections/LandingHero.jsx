@@ -7,29 +7,6 @@ import Image from "next/image";
 import { TextRotate } from "@/components/animations/TextRotate";
 import { AnimatedMarqueeHero } from "@/components/ui/hero-3";
 
-const exampleImages = [
-  {
-    url: "/hero/car.jpg",
-    title: "Luxury car detailing",
-  },
-  {
-    url: "/hero/wash.jpg",
-    title: "Exterior detailing",
-  },
-  {
-    url: "/hero/paint.jpg",
-    title: "Paint correction",
-  },
-  {
-    url: "/hero/interior.jpg",
-    title: "Interior detailing",
-  },
-  {
-    url: "/hero/car1.jpg",
-    title: "Premium finish",
-  },
-];
-
 export function LandingHero({ settings }) {
   const rating = settings?.rating || 4.6;
   const reviewsCount = settings?.reviewCount || 133;
@@ -66,29 +43,16 @@ export function LandingHero({ settings }) {
     fetchImages();
   }, []);
 
-  const items = [
-    {
-      image: "https://picsum.photos/id/1015/600/400",
-      title: "Peaks",
-      href: "https://example.com/one",
-    },
-    {
-      image: "https://picsum.photos/id/1025/600/400",
-      title: "Pup",
-      href: "https://example.com/two",
-    },
-    {
-      image: "https://picsum.photos/id/1039/600/400",
-      title: "Falls",
-      href: "https://example.com/three",
-    },
-  ];
-
   return (
     <AnimatedMarqueeHero
-      className="bg-[#111618] text-white pt-32 pb-20"
+      className="text-white"
       tagline={
-        <a href={googleUrl} target="_blank" rel="noopener noreferrer" className="flex items-center justify-center gap-2 text-white hover:text-gold transition-colors">
+        <a
+          href={googleUrl}
+          target="_blank"
+          rel="noopener noreferrer"
+          className="flex items-center justify-center gap-2 text-white hover:text-gold transition-colors"
+        >
           <div className="flex items-center text-gold">
             {[...Array(5)].map((_, i) => (
               <svg key={i} className="w-5 h-5 fill-current" viewBox="0 0 20 20">
@@ -96,7 +60,9 @@ export function LandingHero({ settings }) {
               </svg>
             ))}
           </div>
-          <span className="font-semibold tracking-wide text-sm">{rating} Google Rating</span>
+          <span className="font-semibold tracking-wide text-sm">
+            {rating} Google Rating
+          </span>
         </a>
       }
       title={
@@ -105,10 +71,10 @@ export function LandingHero({ settings }) {
           <br />
           <span className="text-gold">Auto Detailing Shop.</span>
           <br />
-          <span className="text-[0.4em] tracking-wider text-white/80 font-medium block mt-6 uppercase">
+          <span className="text-[0.4em] tracking-wider text-white/90 font-medium block mt-5 uppercase">
             Located in the heart of Brooklyn , Park Slope.
           </span>
-          <span className="text-[0.35em] inline-block px-5 py-2 mt-5 rounded-full border-[1.5px] border-gold bg-gold/10 text-gold tracking-widest font-bold uppercase shadow-sm">
+          <span className="text-[0.35em] inline-block px-5 py-2 mt-4 rounded-full border-[1.5px] border-gold bg-gold/10 text-gold tracking-widest font-bold uppercase shadow-sm">
             Mold & Mildew Restoration Experts
           </span>
         </>
@@ -116,16 +82,22 @@ export function LandingHero({ settings }) {
       description="Welcome to Clarity Auto Spa! We are a dedicated team of detailing professionals. We combine expert care, meticulous attention to detail, and a passion for perfection to deliver an unmatched auto spa experience."
       images={heroImages.map((i) => i.url)}
     >
-      <div className="flex flex-col md:flex-row items-center justify-center gap-5 mt-10">
-        <div className="flex flex-col sm:flex-row items-center gap-4 border border-white/20 p-2 pr-2 pl-6 rounded-full bg-white/5 backdrop-blur-md">
-           <span className="text-lg font-bold tracking-[0.1em] text-white">
-             (347) 227-8485
-           </span>
-           <Link href="tel:+13472278485" className="px-8 py-3.5 rounded-full bg-white text-charcoal font-bold tracking-[0.15em] uppercase shadow-lg transition-colors hover:bg-gray-200">
-             Call Now
-           </Link>
+      <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
+        <div className="flex flex-col sm:flex-row items-center gap-3 border border-white/20 p-1.5 pr-2 pl-5 rounded-full bg-black/40 backdrop-blur-md shadow-lg">
+          <span className="text-base sm:text-lg font-bold tracking-[0.1em] text-white">
+            (347) 227-8485
+          </span>
+          <Link
+            href="tel:+13472278485"
+            className="px-7 py-3 rounded-full bg-white text-charcoal font-bold tracking-[0.15em] uppercase shadow-lg transition-colors hover:bg-gray-200 text-xs sm:text-sm"
+          >
+            Call Now
+          </Link>
         </div>
-        <Link href="/services" className="px-10 py-4 rounded-full bg-gold text-charcoal border-[1.5px] border-gold font-bold tracking-[0.15em] uppercase transition-colors hover:bg-gold-hover shadow-[0_0_20px_rgba(220,165,70,0.3)]">
+        <Link
+          href="/services"
+          className="px-9 py-3.5 rounded-full bg-gold text-charcoal border-[1.5px] border-gold font-bold tracking-[0.15em] uppercase transition-colors hover:bg-gold-hover shadow-[0_0_20px_rgba(220,165,70,0.3)] text-xs sm:text-sm"
+        >
           Book Now
         </Link>
       </div>

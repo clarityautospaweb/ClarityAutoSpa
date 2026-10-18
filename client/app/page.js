@@ -6,7 +6,6 @@ import LocationSection from "@/components/sections/LocationSection";
 import CTABanner from "@/components/layout/CTABanner";
 import CurvedLoop from "@/components/animations/CurvedLoop";
 import ServicesSection from "@/components/sections/ServicesSection";
-import AboutUsSection from "@/components/sections/AboutUsSection";
 
 export default async function Home() {
   let services = [];
@@ -27,21 +26,22 @@ export default async function Home() {
   }
 
   return (
-    <>
+    <div className="w-full bg-[#0b0e10] text-white">
       <LandingHero settings={settings} />
       <ServicesSection />
       <ReviewsSection />
-      {/* <AboutUsSection /> */}
+
       <CurvedLoop
         marqueeText="PREMIUM ✦ AUTO ✦ DETAILING ✦ UNMATCHED ✦ CLARITY ✦ "
         speed={2}
         curveAmount={0}
         direction="right"
       />
-      <div className="bg-[#1a2124] py-4 border-y border-white/10 text-center">
+
+      <div className="bg-[#111618] py-4 border-y border-white/10 text-center relative z-20">
         <a
           href="/services#quiz"
-          className="text-gold font-bold hover:text-white transition-colors flex items-center justify-center gap-2"
+          className="text-gold font-bold hover:text-white transition-colors inline-flex items-center justify-center gap-2 text-sm sm:text-base px-4"
         >
           Not sure what your vehicle needs? Take the 30-second quiz
           <svg
@@ -59,10 +59,11 @@ export default async function Home() {
           </svg>
         </a>
       </div>
+
       <GallerySection />
       <WhyUsSection />
       <LocationSection />
       <CTABanner />
-    </>
+    </div>
   );
 }

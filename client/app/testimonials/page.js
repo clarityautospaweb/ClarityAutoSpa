@@ -1,3 +1,4 @@
+import Image from "next/image";
 import ReviewCard from "@/components/cards/ReviewCard";
 import CTABanner from "@/components/layout/CTABanner";
 
@@ -29,8 +30,21 @@ export default async function ReviewsPage() {
   // Hardcoded fallback removed to use dynamic data from database
 
   return (
-    <div className="pt-32 bg-[#111618] min-h-screen">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mb-24">
+    <div className="relative pt-32 bg-[#0b0e10] min-h-screen overflow-hidden">
+      <div className="absolute inset-0 z-0 pointer-events-none select-none">
+        <Image
+          src="/porche_back.jpeg"
+          alt="Clarity Auto Spa Reviews"
+          fill
+          priority
+          sizes="100vw"
+          quality={90}
+          className="object-cover object-center"
+        />
+        <div className="absolute inset-0 bg-black/60" />
+        <div className="absolute inset-0 bg-gradient-to-b from-black/80 via-transparent to-[#0b0e10]" />
+      </div>
+      <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mb-24">
         
         <div className="text-center max-w-3xl mx-auto mb-16">
           <div className="text-gold tracking-[0.15em] uppercase text-md mb-4 text-[12px] md:text-[13px] font-bold">

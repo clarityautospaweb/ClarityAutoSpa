@@ -8,14 +8,12 @@ import "./globals.css";
 const cormorant = Cormorant_Garamond({
   variable: "--font-heading",
   subsets: ["latin"],
-  weight: ["500", "600"],
   display: "swap",
 });
 
 const manrope = Manrope({
   variable: "--font-body",
   subsets: ["latin"],
-  weight: ["400", "500", "600"],
   display: "swap",
 });
 
@@ -29,7 +27,7 @@ export const metadata = {
 
 export default function RootLayout({ children }) {
   return (
-    <html lang="en" suppressHydrationWarning className={`scroll-smooth ${cormorant.variable} ${manrope.variable}`}>
+    <html lang="en" suppressHydrationWarning className={`${cormorant.variable} ${manrope.variable}`}>
       <body suppressHydrationWarning className="font-sans antialiased min-h-screen flex flex-col text-[16px] md:text-[17px] leading-[1.65]">
         <SmoothScroll>
           <Navbar />

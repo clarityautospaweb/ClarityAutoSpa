@@ -81,7 +81,7 @@ export default async function GallerySection() {
   const itemsToDisplay = galleryImages.length > 0 ? galleryImages : fallbackItems;
 
   return (
-    <div id="gallery" className="w-full antialiased bg-[#111618] border-t border-white/10">
+    <div id="gallery" className="w-full antialiased bg-[#0b0e10] border-t border-white/10">
       <InteractiveImageBentoGallery
         imageItems={itemsToDisplay}
         title="See the Clarity Difference"

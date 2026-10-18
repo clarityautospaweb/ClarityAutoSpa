@@ -19,7 +19,6 @@ const CurvedLoop = ({
   const textPathRef = useRef(null);
   const pathRef = useRef(null);
   const [spacing, setSpacing] = useState(0);
-  const [offset, setOffset] = useState(0);
   const uid = useId();
   const pathId = `curve-${uid}`;
   const pathD = `M-3000,75 Q1440,${75 + curveAmount} 6000,75`;
@@ -46,7 +45,6 @@ const CurvedLoop = ({
     if (textPathRef.current) {
       const initial = -spacing;
       textPathRef.current.setAttribute('startOffset', initial + 'px');
-      setOffset(initial);
     }
   }, [spacing]);
 
@@ -62,7 +60,6 @@ const CurvedLoop = ({
         if (newOffset <= -wrapPoint) newOffset += wrapPoint;
         if (newOffset > 0) newOffset -= wrapPoint;
         textPathRef.current.setAttribute('startOffset', newOffset + 'px');
-        setOffset(newOffset);
       }
       frame = requestAnimationFrame(step);
     };
@@ -89,7 +86,6 @@ const CurvedLoop = ({
     if (newOffset <= -wrapPoint) newOffset += wrapPoint;
     if (newOffset > 0) newOffset -= wrapPoint;
     textPathRef.current.setAttribute('startOffset', newOffset + 'px');
-    setOffset(newOffset);
   };
 
   const endDrag = () => {
@@ -122,7 +118,7 @@ const CurvedLoop = ({
         </defs>
         {ready && (
           <text xmlSpace="preserve" className={`fill-white ${className ?? ''}`}>
-            <textPath ref={textPathRef} href={`#${pathId}`} startOffset={offset + 'px'} xmlSpace="preserve">
+            <textPath ref={textPathRef} href={`#${pathId}`} xmlSpace="preserve">
               {totalText}
             </textPath>
           </text>

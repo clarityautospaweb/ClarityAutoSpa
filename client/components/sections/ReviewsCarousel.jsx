@@ -99,7 +99,7 @@ export default function ReviewsCarousel({ reviews, rating, reviewCount, googleUr
     <section 
       aria-roledescription="carousel" 
       aria-label="Customer reviews"
-      className="w-full bg-[#111618] py-24 md:py-32 overflow-hidden border-t border-white/10 outline-none"
+      className="w-full bg-[#0b0e10] py-24 md:py-32 overflow-hidden border-t border-white/10 outline-none"
       onKeyDown={handleKeyDown}
       onTouchStart={handleTouchStart}
       onTouchEnd={handleTouchEnd}

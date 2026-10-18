@@ -1,3 +1,4 @@
+import Image from "next/image";
 import BeforeAfterSlider from "@/components/features/BeforeAfterSlider";
 
 export const metadata = {
@@ -22,8 +23,21 @@ export default async function GalleryPage() {
   const plainImagesAndVideos = images.filter((img) => img.imageType === "Plain Image" || img.imageType === "Video");
 
   return (
-    <div className="pt-52 pb-24 bg-[#111618] min-h-screen">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mb-16">
+    <div className="relative pt-52 pb-24 bg-[#0b0e10] min-h-screen overflow-hidden">
+      <div className="absolute inset-0 z-0 pointer-events-none select-none">
+        <Image
+          src="/porche_back.jpeg"
+          alt="Clarity Auto Spa Gallery"
+          fill
+          priority
+          sizes="100vw"
+          quality={90}
+          className="object-cover object-center"
+        />
+        <div className="absolute inset-0 bg-black/60" />
+        <div className="absolute inset-0 bg-gradient-to-b from-black/80 via-transparent to-[#0b0e10]" />
+      </div>
+      <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mb-16">
         <div className="text-center max-w-3xl mx-auto mb-16">
           <div className="inline-flex items-center gap-2 bg-gold/10 border border-gold/20 text-gold px-4 py-1.5 rounded-full tracking-[0.15em] uppercase mb-5 text-[12px] font-bold shadow-sm">
             <span className="w-1.5 h-1.5 rounded-full bg-gold"></span>

@@ -11,15 +11,30 @@ const iconMap = {
 
 export default function WhyUsSection() {
   return (
-    <section id="why-us" className="py-32 bg-[#111618] border-t border-white/10 relative overflow-hidden">
+    <section id="why-us" className="py-28 md:py-36 bg-[#0b0e10] border-t border-white/10 relative overflow-hidden">
+      {/* ─── FULL-BLEED VISIBLE PORSCHE REAR (WEISSACH WING) BACKGROUND ─── */}
+      <div className="absolute inset-0 z-0 pointer-events-none select-none overflow-hidden">
+        <Image
+          src="/porche_back.jpeg"
+          alt="Clarity Auto Spa - Porsche GT3 RS Weissach Wing"
+          fill
+          sizes="100vw"
+          quality={90}
+          className="object-cover object-center"
+        />
+        {/* Subtle cinematic scrim: keeps rear wing and car completely visible while cards pop */}
+        <div className="absolute inset-0 bg-black/60" />
+        <div className="absolute inset-0 bg-gradient-to-b from-[#0b0e10] via-transparent to-[#0b0e10]" />
+      </div>
+
       <div className="mx-auto px-4 sm:px-6 lg:px-20 relative z-10">
         
-        <div className="text-center max-w-2xl mx-auto mb-20">
+        <div className="text-center max-w-2xl mx-auto mb-16 md:mb-20">
           <div className="inline-flex items-center gap-2 bg-gold/10 text-gold px-4 py-1.5 rounded-full tracking-[0.15em] uppercase mb-6 text-[11px] font-semibold border border-gold/20">
             <span className="w-1.5 h-1.5 rounded-full bg-gold animate-pulse"></span>
             The Clarity Difference
           </div>
-          <h2 className="font-heading font-medium text-white capitalize text-[clamp(2.5rem,4vw,3.5rem)] leading-[1.1] tracking-tight">
+          <h2 className="font-heading font-medium text-white capitalize text-[clamp(2.5rem,4vw,3.5rem)] leading-[1.1] tracking-tight drop-shadow-[0_2px_12px_rgba(0,0,0,0.8)]">
             Why Choose Us
           </h2>
         </div>

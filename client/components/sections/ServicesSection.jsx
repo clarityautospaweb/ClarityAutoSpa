@@ -34,7 +34,7 @@ export default async function ServicesSection() {
   }));
 
   return (
-    <section className="py-24 bg-[#111618] relative z-10" id="services">
+    <section className="py-24 bg-[#0b0e10] relative z-10" id="services">
       <div className="mx-auto px-4 sm:px-6 lg:px-8">
         
         <div className="text-center max-w-3xl mx-auto mb-16">

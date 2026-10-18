@@ -18,31 +18,38 @@ export default function Navbar() {
   const [scrolled, setScrolled] = useState(false);
 
   useEffect(() => {
+    let ticking = false;
     const handleScroll = () => {
-      setScrolled(window.scrollY > 20);
+      if (!ticking) {
+        requestAnimationFrame(() => {
+          setScrolled(window.scrollY > 20);
+          ticking = false;
+        });
+        ticking = true;
+      }
     };
-    window.addEventListener("scroll", handleScroll);
+    window.addEventListener("scroll", handleScroll, { passive: true });
     handleScroll();
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
   return (
     <div className="fixed top-6 left-1/2 -translate-x-1/2 z-[100] w-[96%]">
-      <div className="flex items-center justify-between w-full py-2 md:py-4 px-2 md:px-6">
+      <div className="flex items-between justify-between w-full py-2 md:py-4 px-2 md:px-6">
         
         {/* Left: Logo */}
         <div className="flex-shrink-0 z-50 pl-2 md:pl-6">
           <Link href="/" className="flex items-center">
             <motion.div
-              className="relative flex items-center"
-              animate={{ height: scrolled ? 50 : 80 }}
+              className="relative flex items-center origin-left"
+              animate={{ scale: scrolled ? 0.85 : 1, y: scrolled ? -2 : 0 }}
               initial={false}
-              transition={{ type: "spring", stiffness: 400, damping: 40 }}
+              transition={{ type: "spring", stiffness: 350, damping: 30 }}
             >
               <Image
                 src="/logo.png"
                 alt="Clarity Auto Spa"
-                width={240}
+                width={125}
                 height={80}
                 className="h-full w-auto object-contain drop-shadow-xl"
                 priority
