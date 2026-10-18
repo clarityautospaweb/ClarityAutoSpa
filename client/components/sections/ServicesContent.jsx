@@ -134,8 +134,8 @@ export default function ServicesContent({ services, categories }) {
       </div>
 
       {/* Jump Bar */}
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mb-12">
-        <div className="flex flex-wrap overflow-x-auto pb-4 hide-scrollbar gap-3 md:justify-center md:sticky md:top-24 z-30 bg-[#111618]/90 backdrop-blur-md pt-2">
+      <div className="sticky top-20 md:top-24 z-30 flex justify-center px-4 sm:px-6 lg:px-8 mb-12 pointer-events-none">
+        <div className="w-fit max-w-full pointer-events-auto flex items-center overflow-x-auto p-1.5 sm:p-2 hide-scrollbar gap-2 sm:gap-3 rounded-full backdrop-blur-xl bg-[#111618]/90 border border-white/10 shadow-2xl">
           {activeCategories.map((cat) => (
             <button
               key={cat.slug}
