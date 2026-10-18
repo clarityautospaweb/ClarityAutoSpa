@@ -25,7 +25,7 @@ export const AnimatedMarqueeHero = ({
   title,
   description,
   ctaText,
-  images,
+  images = [],
   className,
   children
 }) => {
@@ -36,7 +36,10 @@ export const AnimatedMarqueeHero = ({
   };
 
   // Duplicate images for a seamless loop
-  const duplicatedImages = [...images, ...images, ...images];
+  const imageList = Array.isArray(images) ? images : [];
+  const duplicatedImages = imageList.length > 0
+    ? [...imageList, ...imageList, ...imageList]
+    : [];
 
   return (
     <section
@@ -129,41 +132,43 @@ export const AnimatedMarqueeHero = ({
       </div>
 
       {/* ─── SHOWCASE CARDS (POSITIONED NATURALLY BELOW BUTTONS) ─── */}
-      <div className="relative z-10 w-full mt-6 md:mt-8 pb-6 md:pb-8 pointer-events-none flex flex-col justify-end overflow-hidden">
-        <div className="absolute top-0 left-0 right-0 h-6 bg-gradient-to-b from-black/20 to-transparent z-10 pointer-events-none" />
-        <div className="absolute bottom-0 left-0 right-0 h-6 bg-gradient-to-t from-[#0b0e10] to-transparent z-10 pointer-events-none" />
+      {duplicatedImages.length > 0 && (
+        <div className="relative z-10 w-full mt-6 md:mt-8 pb-6 md:pb-8 pointer-events-none flex flex-col justify-end overflow-hidden">
+          <div className="absolute top-0 left-0 right-0 h-6 bg-gradient-to-b from-black/20 to-transparent z-10 pointer-events-none" />
+          <div className="absolute bottom-0 left-0 right-0 h-6 bg-gradient-to-t from-[#0b0e10] to-transparent z-10 pointer-events-none" />
 
-        <motion.div
-          className="flex gap-4 w-max items-end"
-          style={{ willChange: "transform" }}
-          animate={{
-            x: ["0%", "-33.333%"],
-            transition: {
-              ease: "linear",
-              duration: 35,
-              repeat: Infinity,
-            },
-          }}
-        >
-          {duplicatedImages.map((src, index) => (
-            <div
-              key={index}
-              className="relative aspect-[4/3] h-36 sm:h-44 md:h-52 flex-shrink-0"
-              style={{
-                rotate: `${(index % 2 === 0 ? -1 : 1.5)}deg`,
-              }}
-            >
-              <img
-                src={src}
-                alt={`Showcase image ${index + 1}`}
-                loading="lazy"
-                decoding="async"
-                className="w-full h-full object-cover rounded-2xl shadow-2xl border border-white/20 pointer-events-none"
-              />
-            </div>
-          ))}
-        </motion.div>
-      </div>
+          <motion.div
+            className="flex gap-4 w-max items-end"
+            style={{ willChange: "transform" }}
+            animate={{
+              x: ["0%", "-33.333%"],
+              transition: {
+                ease: "linear",
+                duration: 35,
+                repeat: Infinity,
+              },
+            }}
+          >
+            {duplicatedImages.map((src, index) => (
+              <div
+                key={index}
+                className="relative aspect-[4/3] h-36 sm:h-44 md:h-52 flex-shrink-0"
+                style={{
+                  rotate: `${(index % 2 === 0 ? -1 : 1.5)}deg`,
+                }}
+              >
+                <img
+                  src={src}
+                  alt={`Showcase image ${index + 1}`}
+                  loading="lazy"
+                  decoding="async"
+                  className="w-full h-full object-cover rounded-2xl shadow-2xl border border-white/20 pointer-events-none"
+                />
+              </div>
+            ))}
+          </motion.div>
+        </div>
+      )}
     </section>
   );
 };

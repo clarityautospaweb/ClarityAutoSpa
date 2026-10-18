@@ -12,7 +12,7 @@ export function LandingHero({ settings }) {
   const reviewsCount = settings?.reviewCount || 133;
   const googleUrl = settings?.googleReviewsUrl || "#";
 
-  const [heroImages, setHeroImages] = useState(exampleImages);
+  const [heroImages, setHeroImages] = useState([]);
 
   useEffect(() => {
     async function fetchImages() {
@@ -29,11 +29,7 @@ export function LandingHero({ settings }) {
             .filter((img) => img.url);
 
           if (landingImages.length > 0) {
-            const finalImages = [...exampleImages];
-            for (let i = 0; i < Math.min(landingImages.length, 5); i++) {
-              finalImages[i] = landingImages[i];
-            }
-            setHeroImages(finalImages);
+            setHeroImages(landingImages);
           }
         }
       } catch (error) {

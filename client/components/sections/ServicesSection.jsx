@@ -3,14 +3,14 @@ import Image from "next/image";
 import { ArrowUpRight } from "lucide-react";
 
 const getCategoryImage = (slug) => {
-  if (!slug) return "/hero/car.jpg";
+  if (!slug) return "/services/full_detail.jpg";
   const s = slug.toLowerCase();
-  if (s.includes("mini")) return "/services/full_detail.jpg";
-  if (s.includes("full")) return "/services/mini_detail.jpg";
-  if (s.includes("interior")) return "/hero/interior.jpg";
+  if (s.includes("mini")) return "/services/mini_detail.jpg";
+  if (s.includes("full")) return "/services/full_detail.jpg";
+  if (s.includes("interior")) return "/services/full_detail.jpg";
   if (s.includes("wrap") || s.includes("ppf")) return "/services/ppf.jpg";
   if (s.includes("specialty") || s.includes("restoration")) return "/services/specialised.jpg";
-  return "/hero/car.jpg";
+  return "/services/full_detail.jpg";
 };
 
 import FeatureShaderCards from "@/components/ui/feature-shader-cards";
