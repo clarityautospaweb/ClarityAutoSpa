@@ -29,6 +29,7 @@ const serviceSchema = new mongoose.Schema(
     },
     includedItems: [{ type: String }],
     isSpecialty: { type: Boolean, default: false },
+    eligibleAddons: [{ type: String }],
   },
   { timestamps: true },
 );

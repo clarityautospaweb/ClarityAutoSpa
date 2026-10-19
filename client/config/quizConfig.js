@@ -36,7 +36,7 @@ export const quizResults = {
     id: "SPECIALTY",
     title: "Specialty Cleaning Assessment",
     copy: "Contact us before booking so we can assess the condition and recommend the appropriate treatment.",
-    targetSlug: "specialty",
+    targetSlug: "specialty-restoration",
   },
   FULL: {
     id: "FULL",

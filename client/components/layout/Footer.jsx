@@ -79,24 +79,39 @@ export default async function Footer() {
             <h4 className="font-semibold text-gold uppercase tracking-widest mb-6 text-sm">Quick Links</h4>
             <ul className="space-y-3">
               <li>
-                <Link href="/#services" className="text-cream/70 hover:text-gold transition-colors">
-                  Services & Pricing
+                <Link href="/services" className="text-cream/70 hover:text-gold transition-colors">
+                  Services
                 </Link>
               </li>
               <li>
-                <Link href="/#why-us" className="text-cream/70 hover:text-gold transition-colors">
-                  Why Choose Us
+                <Link href="/pricing" className="text-cream/70 hover:text-gold transition-colors">
+                  Pricing & Packages
                 </Link>
               </li>
               <li>
-                <Link href="/reviews" className="text-cream/70 hover:text-gold transition-colors">
-                  Client Reviews
+                <Link href="/specialty" className="text-cream/70 hover:text-gold transition-colors">
+                  Specialty Services
                 </Link>
               </li>
               <li>
-                <Link href="#quote" className="text-cream/70 hover:text-gold transition-colors">
-                  Get a Quote
+                <Link href="/gallery" className="text-cream/70 hover:text-gold transition-colors">
+                  Our Work Gallery
                 </Link>
+              </li>
+              <li>
+                <Link href="/about" className="text-cream/70 hover:text-gold transition-colors">
+                  About Us
+                </Link>
+              </li>
+              <li>
+                <Link href="/contact" className="text-cream/70 hover:text-gold transition-colors">
+                  Contact & Directions
+                </Link>
+              </li>
+              <li>
+                <a href="https://Claritybk.as.me/" target="_blank" rel="noopener noreferrer" className="text-gold font-semibold hover:underline">
+                  Book Now (Acuity) ↗
+                </a>
               </li>
             </ul>
           </div>

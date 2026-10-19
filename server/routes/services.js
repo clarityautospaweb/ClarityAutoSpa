@@ -17,8 +17,17 @@ const serviceSchema = z.object({
   acuityLink: z.string().optional().or(z.literal('')),
   carType: z.string().optional(),
   displayOrder: z.number().int().optional(),
-  imageUrl: z.string().url().optional().or(z.literal('')),
+  imageUrl: z.string().optional().or(z.literal('')),
   imageId: z.string().optional().or(z.literal('')),
+  pricingType: z.enum(["fixed", "starts_at", "inspection"]).optional(),
+  categoryId: z.string().optional(),
+  vehicleSize: z.string().nullable().optional(),
+  turnaround: z.string().optional(),
+  ctaType: z.enum(["book", "quote", "assessment"]).optional(),
+  includedItems: z.array(z.string()).optional(),
+  isSpecialty: z.boolean().optional(),
+  eligibleAddons: z.array(z.string()).optional(),
+  enabled: z.boolean().optional(),
 });
 
 const editServiceSchema = serviceSchema.partial();

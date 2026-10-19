@@ -4,8 +4,19 @@ const Category = require('../models/Category');
 const requireAuth = require('../middleware/requireAuth');
 
 // Default categories to seed if none exist
-const DEFAULT_SERVICE_CATEGORIES = ['Detailing', 'Exterior Wash', 'Interior Detailing'];
-const DEFAULT_CAR_CATEGORIES = ['Sedan', 'SUV', 'XLSUV', 'All Vehicles'];
+const DEFAULT_SERVICE_CATEGORIES = [
+  'Mini Detail — Exterior Wash & Interior Cleaning',
+  'Full Detail — Interior & Exterior',
+  'Interior Detail Only',
+  'Engine Bay Detailing',
+  'Paint Correction & Ceramic Coating',
+  'Ceramic Window Tinting',
+  'Paint Protection Film (PPF)',
+  'Vinyl Wraps',
+  'Custom Vehicle Enhancements',
+  'Specialty Cleaning & Restoration'
+];
+const DEFAULT_CAR_CATEGORIES = ['Sedan', 'SUV', 'XL SUV', 'All Vehicles'];
 
 // GET /api/categories — public, returns all categories grouped by type
 router.get('/', async (req, res) => {

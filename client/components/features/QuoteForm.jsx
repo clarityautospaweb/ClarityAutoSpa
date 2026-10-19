@@ -4,7 +4,7 @@ import { useState, useEffect } from "react";
 import { Upload, X, CheckCircle2, AlertCircle } from "lucide-react";
 import Image from "next/image";
 
-export default function QuoteForm() {
+export default function QuoteForm({ initialService = "" }) {
   const [services, setServices] = useState([]);
   const [categories, setCategories] = useState([]);
   const [formData, setFormData] = useState({
@@ -12,7 +12,7 @@ export default function QuoteForm() {
     phone: "",
     email: "",
     vehicle: "",
-    serviceNeeded: "",
+    serviceNeeded: initialService || "",
     message: ""
   });
   const [photos, setPhotos] = useState([]);
@@ -43,6 +43,12 @@ export default function QuoteForm() {
       }));
     }
   }, []);
+
+  useEffect(() => {
+    if (initialService) {
+      setFormData(prev => ({ ...prev, serviceNeeded: initialService }));
+    }
+  }, [initialService]);
 
   const isMiniDetailSelected = formData.serviceNeeded.includes("Mini Detail");
 

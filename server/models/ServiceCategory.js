@@ -9,6 +9,7 @@ const serviceCategorySchema = new mongoose.Schema(
     enabled: { type: Boolean, default: true },
     requiresAssessment: { type: Boolean, default: false },
     requiresAcknowledgement: { type: Boolean, default: false },
+    imageUrl: { type: String, default: "" },
   },
   { timestamps: true },
 );
