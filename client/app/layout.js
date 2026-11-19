@@ -1,4 +1,5 @@
 import { Cormorant_Garamond, Manrope } from "next/font/google";
+import { Analytics } from "@vercel/analytics/next";
 import Navbar from "@/components/layout/Navbar";
 import Footer from "@/components/layout/Footer";
 import MobileBottomBar from "@/components/layout/MobileBottomBar";
@@ -35,6 +36,7 @@ export default function RootLayout({ children }) {
           <Footer />
           <MobileBottomBar />
         </SmoothScroll>
+        <Analytics />
       </body>
     </html>
   );
